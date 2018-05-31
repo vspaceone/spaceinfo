@@ -1,14 +1,8 @@
 #!/bin/bash
 
 
-mkdir /opt/tempLogger
+mkdir /etc/spaceinfo
 
-rm /opt/tempUpdater/tempLogger.sh
-
-cp tempLogger.sh /opt/tempLogger/
-
-mkdir /etc/tempLogger
-
-cp tempLogger.service //lib/systemd/system/tempLogger.service
+cp spaceinfo.service //lib/systemd/system/spaceinfo.service
 
 systemctl daemon-reload
