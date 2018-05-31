@@ -1,0 +1,9 @@
+[Unit]
+Description=spaceinfo
+After=network.target
+
+[Service]
+ExecStart=/bin/bash /opt/spaceinfo/spaceinfo.sh
+
+[Install]
+WantedBy=multi-user.target
