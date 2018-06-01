@@ -13,4 +13,4 @@ Einfach ein mit 1920x1080 Pixeln und im .jpg Format committen und etwas warten. 
 + spaceinfo.service
 
 ## Licence
-Siehe (LICENCE.md)[LICENCE]
+Siehe [LICENCE](LICENCE.md)
