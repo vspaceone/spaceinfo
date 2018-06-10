@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 120
+
 cd /opt/spaceinfo
 git pull origin master
 
