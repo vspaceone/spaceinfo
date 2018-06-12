@@ -2,7 +2,8 @@
 apt-get install git libao-dev libssl-dev libcrypt-openssl-rsa-perl libio-socket-inet6-perl libwww-perl avahi-utils
 git clone https://github.com/albertz/shairport.git shairport
 cd shairport
-sudo make
+bash configure.sh
+make
 make install
 cp shairport.init.sample /etc/init.d/shairport
 cd /etc/init.d
