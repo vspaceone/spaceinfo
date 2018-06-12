@@ -3,7 +3,7 @@
 Dieses kleine Script läuft auf den Infoterminals im Space.
 
 ## Install
-Installiere `fbi` und `git`
+Installiere `fbi` und `git`. Checke das Repo nach `/opt/spaceinfo` aus und führe das `install.sh`-Skript aus. Der Service ist dann registiert und kann angeschalten werden.
 
 ```
 sudo apt install fbi git
