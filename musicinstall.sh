@@ -15,7 +15,7 @@ apt install dirmngr
 gpg --keyserver pool.sks-keyservers.net --recv-key F8E3347256922A8AE767605B7808CE96D38B9201
 gpg --export '7808CE96D38B9201' | sudo apt-key add -
 apt-get update
-apt-get install upmpdcli
+apt-get install upmpdcli mpd
 
 
 
