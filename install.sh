@@ -26,10 +26,12 @@ chmod +x musicinstall.sh
 
 bash musicinstall.sh
 
-echo "Starting Spaceinfo Script..."
-
-bash spaceinfo.sh
+echo "starting spaceinfo service..."
 
 systemctl enable spaceinfo
+
+echo "sss::end"
+
+echo "SS::START"
 
 systemctl start spaceinfo
