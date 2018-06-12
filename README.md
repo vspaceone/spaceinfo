@@ -3,16 +3,11 @@
 Dieses kleine Script läuft auf den Infoterminals im Space.
 
 ## Install
-Installiere `fbi` und `git`. Checke das Repo nach `/opt/spaceinfo` aus und führe das `install.sh`-Skript aus. Der Service ist dann registiert und kann angeschalten werden.
+führe das `install.sh`-Skript aus.
 
 ```
-sudo apt install fbi git
 cd /opt
-git clone https://github.com/vspaceone/spaceinfo.git
-cd spaceinfo
 sudo bash install.sh
-sudo systemctl enable spaceinfo
-sudo systemctl start spaceinfo
 ```
 
 ## Wie kann ich Bilder hinzufügen?
