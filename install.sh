@@ -1,6 +1,13 @@
 #!/bin/bash
 
-sudo apt install fbi
+apt install fbi git
+
+cd /opt
+
+git clone https://github.com/vspaceone/spaceinfo.git
+
+cd spaceinfo
+
 
 mkdir /etc/spaceinfo
 
@@ -12,8 +19,12 @@ chmod +x spaceinfo.sh
 
 chmod +x musicinstall.sh
 
-./musicinstall.sh
+bash musicinstall.sh
 
 echo "Starting Spaceinfo Script..."
 
-./spaceinfo.sh
+bash spaceinfo.sh
+
+systemctl enable spaceinfo
+
+systemctl start spaceinfo
