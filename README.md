@@ -2,6 +2,23 @@
 
 Dieses kleine Script läuft auf den Infoterminals im Space.
 
+## Install
+Installiere `fbi` und `git`
+
+`sudo apt install fbi git`
+
+`cd /opt`
+
+`git clone https://github.com/vspaceone/spaceinfo.git`
+
+`cd spaceinfo`
+
+`sudo bash install.sh`
+
+`sudo systemctl enable spaceinfo`
+
+`sudo systemctl start spaceinfo`
+
 ## Wie kann ich Bilder hinzufügen?
 Einfach ein mit 1920x1080 Pixeln und im .jpg Format committen und etwas warten. Die Infoterminals holen sich mehrmals täglich die aktualisierten Bilder von GitHub.
 
