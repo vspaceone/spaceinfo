@@ -26,4 +26,4 @@ sudo nano /etc/upmpdcli.conf
 
 cd /etc/init.d
 sudo nano shairport
-cd /opt/spaceinfo
+cd /etc/spaceinfo
