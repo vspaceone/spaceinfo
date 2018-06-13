@@ -10,10 +10,13 @@ while [ 1 ]; do
 	for d in pages/*/ ; do
 		if [ -f "$d/link.txt" ]; then
 			firefox -url "`cat $d/link.txt`"
-		else
+		elif [ -f "$d/index.html" ]; then
 			firefox -url "$d/index.html"
+		else
+			echo "Error: $d does contain neither link.txt nor index.html"
+			continue
 		fi
-		sleep 5
+		sleep 15
 	done
 	git pull origin master
 done
