@@ -1,3 +1,4 @@
 #!/bin/bash
 
-wget -o feed.xml "https://wiki.vspace.one/feed.php?type=rss2"
+wget "https://wiki.vspace.one/feed.php?type=rss2"
+mv feed.php?type=rss2 feed.xml
