@@ -43,7 +43,7 @@
 
         .news_node {
             width: 100%;
-        }  
+        }
 
         .news_title {
             font-size: 1em;
@@ -88,7 +88,7 @@
     </div>
 
     <script>
-        $.get("feed.xml", function (data) {
+        $.get("https://wiki.vspace.one/feed.php?type=rss2", function (data) {
             var $XML = $(data);
             var i = 0;
             $XML.find("item").each(function () {
