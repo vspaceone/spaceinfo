@@ -10,7 +10,7 @@
 			padding: 0;
 		}
 
-		#frame {
+		iframe {
 			border: none;
 			margin: 0;
 			padding: 0;
@@ -20,22 +20,30 @@
 		$(document).ready(function () {
 
 		})
+
+
+		var URL = "";
 		window.setInterval(function () {
-			console.log("loading new page");
 			$.getJSON("directory.json", function (data) {
-				var d = Math.floor((Math.random() * data.length));
-				console.log(data[d].link);
-				var newUrl = data[d].link;
-				$('#frame').attr('src', newUrl);
+				var d;
+				do {
+					d = Math.floor((Math.random() * data.length));
+				} while( URL == data[d].link);
+				console.log("Loading",data[d].link);
+				var URL = data[d].link;
+				//var newUrl = "file:///home/max/git/spaceinfo/pages/hackerstate_europe_map/index.html";
+				$('#frame').attr('src', URL);
+
+				
 			});
-		}, 10000);
+		}, 3000);
 	</script>
 
 </head>
 
 <body>
 
-	<iframe id="frame" src="http://vspace.one" width="100%" height="100%"></iframe>
+	<iframe id="frame" src="http://vspace.one" width="100%" height="100%" style="position: absolute; top: 0; left: 0;"></iframe>
 </body>
 
 </html>
