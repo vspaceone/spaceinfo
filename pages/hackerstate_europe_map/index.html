@@ -1,0 +1,151 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol-debug.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map" class="map"></div>
+    <script>
+
+        function update() {
+            $.getJSON("https://spaceapi.fixme.ch/directory.json")
+                .done(function (data, textStatus) {
+                    keys = Object.keys(data);
+                    values = Object.values(data);
+                    for (var k in Object.keys(data)) {
+                        updateSpace(keys[k], values[k]);
+                    }
+                });
+        }
+
+        var raster = new ol.layer.Tile({
+            source: new ol.source.OSM()
+        });
+
+        var openSpaces = new ol.source.Vector();
+        var closedSpaces = new ol.source.Vector();
+
+        var styleOpen = [
+            new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 14,
+                    fill: new ol.style.Fill({
+                        color: '#00FF00'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        width: 1,
+                        color: 'black'
+                    })
+                })
+            })
+        ];
+
+        var styleClosed = [
+            new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 14,
+                    fill: new ol.style.Fill({
+                        color: '#FF0000'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        width: 1,
+                        color: 'black'
+                    })
+                })
+            })
+        ];
+
+        var vectorOpen = new ol.layer.Vector({
+            source: openSpaces,
+            style: styleOpen
+        });
+
+        var vectorClosed = new ol.layer.Vector({
+            source: closedSpaces,
+            style: styleClosed
+        });
+
+        var map = new ol.Map({
+            layers: [raster, vectorOpen, vectorClosed],
+            target: 'map',
+            view: new ol.View({
+                center: ol.proj.transform([8, 51], 'EPSG:4326', 'EPSG:3857'),
+                zoom: 6
+            }),
+            controls: ol.control.defaults({
+                attribution: false,
+                zoom: false,
+            })
+        });
+
+
+
+        function updateSpace(name, url) {
+            $.getJSON(url)
+                .done(function (data, textStatus) {
+                    try {
+                        console.log([data.location.lon, data.location.lat]);
+                        p = new ol.geom.Point(ol.proj.transform([data.location.lon, data.location.lat], 'EPSG:4326', 'EPSG:3857'));
+                            var f = new ol.Feature({
+                                name: name,
+                                geometry: p
+                            });
+                        if (data.api == "0.13") {
+                            if (data.state.open == true) {
+                                openSpaces.addFeature(f);
+                            } else {
+                                closedSpaces.addFeature(f);
+                            }
+                        } else if (data.api == "0.12" || data.api == "0.11" || data.api == "0.10" || data.api == "0.9" || data.api == "0.8") {
+                            
+                            if (data.open == true) {
+                                openSpaces.addFeature(f);
+                            } else {
+                                closedSpaces.addFeature(f);
+                            }
+                        } else {
+                            
+                        }
+                    } catch (e) {
+                        console.log("Error: Unknown API Version", data)
+                    }
+
+
+                })
+                .fail(function (data, textStatus) {
+
+                    console.log("Error: Failed ot receive.")
+                });
+        }
+
+        window.setInterval(update, 100000);
+        update();
+    </script>
+
+</body>
+
+</html>

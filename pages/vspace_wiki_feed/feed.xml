@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generator="FeedCreator 1.8" -->
+<?xml-stylesheet href="https://wiki.vspace.one/lib/exe/css.php?s=feed" type="text/css"?>
+<rss version="2.0">
+    <channel xmlns:g="http://base.google.com/ns/1.0">
+        <title>vspace.one wiki</title>
+        <description></description>
+        <link>https://wiki.vspace.one/</link>
+        <lastBuildDate>Wed, 20 Jun 2018 14:42:27 +0000</lastBuildDate>
+        <generator>FeedCreator 1.8</generator>
+        <image>
+            <url>https://wiki.vspace.one/lib/tpl/bootstrap3/images/favicon.ico</url>
+            <title>vspace.one wiki</title>
+            <link>https://wiki.vspace.one/</link>
+        </image>
+        <item>
+            <title>projekte:gbitinfrastructure</title>
+            <link>https://wiki.vspace.one/doku.php?id=projekte:gbitinfrastructure&amp;rev=1529493175&amp;do=diff</link>
+            <description>Infrastructure
+
+Das Netzwerk ist im IP-Bereich 10.0.0.0/8
+
+Changes
+
+	*  WLAN: Group Cipher is only TKIP, no longer CCMP
+
+DHCP
+
+Der DHCP läuft im Router und verteilt Adressen im Range 10.10.0.0 bis 10.10.2.255. Die Netzmaske ist 255.0.0.0. Standardgateway ist</description>
+            <author>max@undisclosed.example.com (max)</author>
+        <category>projekte</category>
+            <pubDate>Wed, 20 Jun 2018 13:12:55 +0000</pubDate>
+        </item>
+        <item>
+            <title>sidebar</title>
+            <link>https://wiki.vspace.one/doku.php?id=sidebar&amp;rev=1529493138&amp;do=diff</link>
+            <description>vspace.one
+
+----------
+
+Nächste Treffen
+
+Letzte Treffen
+
+Ausstattung
+
+Projekte
+
+Infrastructure
+
+TechEvents
+
+CodeGolfing
+
+
+----------
+
+Interne Seiten:
+
+VServer
+
+
+----------
+
+Satzung des vspace.one
+
+GitHub
+
+Twitter</description>
+            <author>max@undisclosed.example.com (max)</author>
+            <pubDate>Wed, 20 Jun 2018 13:12:18 +0000</pubDate>
+        </item>
+        <item>
+            <title>treffen:plenum_2018_08_21 - angelegt</title>
+            <link>https://wiki.vspace.one/doku.php?id=treffen:plenum_2018_08_21&amp;rev=1529438532&amp;do=diff</link>
+            <description>Plenum
+
+Datum: 21.August 2018
+
+Uhrzeit: 19:00 Uhr - ??:?? Uhr
+
+Ort: TechBoxx, Villingen
+
+
+Anwesende:
+
+	*  
+
+Tagesordnung:
+
+TOP X - Hier kann dein Thema stehen
+
+	*  Absatz kopieren und eigenen Punkt eintragen</description>
+            <author>max@undisclosed.example.com (max)</author>
+        <category>treffen</category>
+            <pubDate>Tue, 19 Jun 2018 22:02:12 +0000</pubDate>
+        </item>
+        <item>
+            <title>treffen:naechste_treffen</title>
+            <link>https://wiki.vspace.one/doku.php?id=treffen:naechste_treffen&amp;rev=1529438484&amp;do=diff</link>
+            <description>Nächste Treffen
+
+Hier kann organisiert werden wann die nächsten Treffen stattfinden. Protokolle vergangener Treffen sind hier zu finden.
+
+	*  Di., 21. August 2018, ab 19Uhr:  Plenum</description>
+            <author>max@undisclosed.example.com (max)</author>
+        <category>treffen</category>
+            <pubDate>Tue, 19 Jun 2018 22:01:24 +0000</pubDate>
+        </item>
+        <item>
+            <title>treffen:letzte_treffen - [2018] </title>
+            <link>https://wiki.vspace.one/doku.php?id=treffen:letzte_treffen&amp;rev=1529438314&amp;do=diff</link>
+            <description>Vergangene Treffen
+
+2018
+
+	*  Fr., 26.Januar 16:30 Uhr bis So. 28.Januar: GlobalGameJam 2018
+	*  Sa., 27.Januar 2018 16:00 Uhr: 003 CodeGolfing - Größte Summe
+	*  17. Februar 2018: Jahreshauptversammlung
+	*  Do., 10. bis So.,13.Mai 2018: Gulaschprogrammiernacht 2018 (GPN18)(Karlsruhe, ZKM)
+	*  Di., 19.Juni 2018, ab 19Uhr:  Plenum
+
+2017
+
+	*  Mi., 27. - Sa., 30.12.2017: 34. Chaos Communication Congress (Leipzig, Messe)
+	*  Sa., 23.Dez 2017 17:00 Uhr:</description>
+            <author>max@undisclosed.example.com (max)</author>
+        <category>treffen</category>
+            <pubDate>Tue, 19 Jun 2018 21:58:34 +0000</pubDate>
+        </item>
+        <item>
+            <title>treffen:plenum_2018_06_19</title>
+            <link>https://wiki.vspace.one/doku.php?id=treffen:plenum_2018_06_19&amp;rev=1529437065&amp;do=diff</link>
+            <description>Plenum
+
+Datum: 19.Juni 2018
+
+Uhrzeit: 19:00 Uhr - 21:30 Uhr
+
+Ort: TechBoxx, Villingen
+
+
+Anwesende:
+
+	*  Damian
+	*  Michael
+	*  Chris
+	*  Dominik
+	*  Arvid
+	*  Florian
+	*  Sven
+	*  Tim
+
+Tagesordnung:
+
+TOP 0 - Plenum
+
+	*  Übersicht, was ist das.
+	*  Warum haben wir das so lange nicht mehr gemacht?</description>
+            <author>michael@undisclosed.example.com (michael)</author>
+        <category>treffen</category>
+            <pubDate>Tue, 19 Jun 2018 21:37:45 +0000</pubDate>
+        </item>
+        <item>
+            <title>regeln - angelegt</title>
+            <link>https://wiki.vspace.one/doku.php?id=regeln&amp;rev=1529435665&amp;do=diff</link>
+            <description>Internet
+
+Anderes...</description>
+            <author>hacker3000@undisclosed.example.com (hacker3000)</author>
+            <pubDate>Tue, 19 Jun 2018 21:14:25 +0000</pubDate>
+        </item>
+        <item>
+            <title>ausstattung:3d_drucker - [He3D EI3 Drucker (Tarantula Clone) (public) :] </title>
+            <link>https://wiki.vspace.one/doku.php?id=ausstattung:3d_drucker&amp;rev=1529062369&amp;do=diff</link>
+            <description>Nützliches
+
+Tools
+
+Marlin Config Tool
+Marlin FW f. HE3D
+Marlin Config Tool 2
+ HACKER3000 Config / Testprints
+
+3D Drucker
+
+He3D EI3 Drucker (Tarantula Clone) (public) :
+
+Wichtige Dinge Für ein erfolgreichen 3D Druck
+
+STL Erzeugen/Downloaden
+
+(coming soon)
+
+Leveln vom HeatBed
+
+(coming soon)
+
+Extruder Geschwindigkeit einstellen (muss nicht vor jedem Druck eingestellt werden)</description>
+            <author>dome@undisclosed.example.com (dome)</author>
+        <category>ausstattung</category>
+            <pubDate>Fri, 15 Jun 2018 13:32:49 +0000</pubDate>
+        </item>
+        <item>
+            <title>vspace.one</title>
+            <link>https://wiki.vspace.one/doku.php?id=vspace.one&amp;rev=1529060792&amp;do=diff</link>
+            <description>Willkommen auf dem vspace.one Wiki
+
+Hello World und herzlich Wilkommen im Wiki von vspace.one.
+
+Übersicht unserer letzten Treffen sowie unsere nächsten Treffen.
+
+Die Regeln,
+
+Die Satzung des vspace.one,
+
+unser Logo
+
+und unsere Projekte.
+
+Die Techboxx,
+
+die Getränke
+
+und die Ausstattung und Bauteile bzw unser Bauteile-&quot;Shop&quot;(offline). 
+Die 3D Drucker Ab und zu veranstalten wir auch Tech Events oder CodeGolfings
+
+&lt;https://github.com/vspaceone&gt;</description>
+            <author>michael@undisclosed.example.com (michael)</author>
+            <pubDate>Fri, 15 Jun 2018 13:06:32 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
