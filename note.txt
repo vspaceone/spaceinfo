@@ -1,1 +1,0 @@
-set browser.link.open_newwindow auf 1
