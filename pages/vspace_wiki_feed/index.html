@@ -29,6 +29,7 @@
             padding-right: 40px;
             padding-top: 20px;
             padding-bottom: 10px;
+						color: #19abff;
 
         }
 
@@ -51,12 +52,14 @@
             padding-left: 80px;
             padding-right: 40px;
             font-weight: bold;
+						color: #f440ff;
         }
 
         .news_date {
             font-size: 1em;
             padding-left: 80px;
             padding-right: 40px;
+						color: #ff8a00;
         }
 
         .news_content {
@@ -70,6 +73,10 @@
             float: left;
             text-align: right;
             width: 80px;
+						color: #19abff;
+        }
+        .news_lineno_slash {
+						color: #ff8a00;
         }
 
         .clear {
@@ -88,7 +95,7 @@
     </div>
 
     <script>
-        $.get("https://wiki.vspace.one/feed.php?type=rss2", function (data) {
+        $.get("feed.xml", function (data) {
             var $XML = $(data);
             var i = 0;
             $XML.find("item").each(function () {
@@ -100,7 +107,7 @@
                         pubDate: $this.find("pubDate").text(),
                         author: $this.find("author").text()
                     };
-                $('#news').append($('<div class="news_node"><div class="clear"></div><div class="news_lineno">'+(++i)+' |</div><div class="news_title">## ' + item.title + '</div><div class="clear"></div><div class="news_lineno">'+(++i)+' |</div><div class="news_date">' + item.pubDate + '"</div><div class="clear"></div><div class="news_lineno">'+(++i)+' |</div><div class="news_content">' + item.description + "</div></div>"));
+								$('#news').append($('<div class="news_node"><div class="clear"></div><div class="news_lineno">'+(++i)+' <span class="news_lineno_slash">|</span></div><div class="news_title">## ' + item.title + '</div><div class="clear"></div><div class="news_lineno">'+(++i)+' <span class="news_lineno_slash">|</span></div><div class="news_date">' + item.pubDate + '"</div><div class="clear"></div><div class="news_lineno">'+(++i)+' <span class="news_lineno_slash">|</span></div><div class="news_content">' + item.description + "</div></div>"));
 
                 //$('#news').append($('<pre><code>## ' + item.title + '</code><code> - ' + item.pubDate + '</code><code> + ' + item.description + '</code></pre>'));
                 //etc...
