@@ -97,7 +97,7 @@
     </div>
 
     <script>
-        $.get("feed.xml", function (data) {
+        $.get("http://feeds.noppelmax.online/netzpolitik.xml", function (data) {
             var $XML = $(data);
             var i = 0;
             $XML.find("item").each(function () {
