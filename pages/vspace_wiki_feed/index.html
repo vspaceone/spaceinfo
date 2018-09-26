@@ -116,6 +116,14 @@
 
 
     </script>
+		<script>
+			speed = 30
+			function pageScroll() {
+    		window.scrollBy(0,1);
+    		scrolldelay = setTimeout(pageScroll,speed);
+			}
+			setTimeout(pageScroll,4000);
+		</script>
 
 </body>
 
