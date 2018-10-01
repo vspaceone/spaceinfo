@@ -2,6 +2,9 @@
 
 Dieses kleine Script läuft auf den Infoterminals im Space.
 
+## So sieht das bei uns aus:
+![Bildschirme im Space](spaceinfo.jpg)
+
 ## Install
 Installiere `fbi` und `git`. Checke das Repo nach `/opt/spaceinfo` aus und führe das `install.sh`-Skript aus. Der Service ist dann registiert und kann angeschalten werden.
 
