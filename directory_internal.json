@@ -1,0 +1,110 @@
+[
+  {
+    "link": "pages/wiki/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/hacknologynews/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/cccfrnews/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/infoinfo/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/tuebix18/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/githuborg/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "https://www.netzfrequenz.info/charts/gauge_full.php", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/preise/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/lpd182/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/projects/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/35c3/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/freifunk/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/cccs_5JahreSnowden/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/cccs_CryptoPartySept/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/mrmcd18/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/netzpolitik_feed/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/hackerstate_europe_map/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/vspace_wiki_feed/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/seidenstrassenkapsel/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/vspaceRulesPropaganda/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/cccs_MachineLearning/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/lugvs/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/rectangle/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/filmnews/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/cccs_menschenrechteImDigitalenZeitalter/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/cccs_nospy18/index.html", 
+    "timeout": 10
+  }, 
+  {
+    "link": "pages/shacknews/index.html", 
+    "timeout": 10
+  }
+]

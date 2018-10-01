@@ -24,14 +24,13 @@
 
 		var URL = "";
 		window.setInterval(function () {
-			$.getJSON("directory.json", function (data) {
+			$.getJSON("directory_internal.json", function (data) {
 				var d;
 				do {
 					d = Math.floor((Math.random() * data.length));
 				} while( URL == data[d].link);
 				console.log("Loading",data[d].link);
 				var URL = data[d].link;
-				//var newUrl = "file:///home/max/git/spaceinfo/pages/hackerstate_europe_map/index.html";
 				$('#frame').attr('src', URL);
 
 				
