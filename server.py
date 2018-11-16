@@ -62,6 +62,12 @@ def printUsage():
 	print("            so the local pages could be prefixed.")
 	print("            Don't forget http(s)://")
 
+@app.route("/")
+def listShows():
+	print(getShows())
+	resp = flask.make_response(flask.render_template('overview.html', shows = getShows()), 200)
+	resp.headers["Content-type"] = "text/html; charset=utf-8"
+	return resp
 
 @app.route("/shows/<showname>.json")
 def loadShowJSON(showname):
@@ -79,6 +85,25 @@ def displayShow(showname):
 def sendStatic(path):
     return flask.send_from_directory('pages', path)
 
+
+def getShows():
+
+	p = os.path.relpath("pages")
+	slideshows = []
+
+	for d in os.listdir(p):
+		if not os.path.isfile(os.path.join("pages",d)):
+			for f in os.listdir(os.path.join("pages",d)):
+				if f == "config.ini":
+					config = configparser.ConfigParser()
+					config.read(os.path.join("pages",d,f))
+					try:
+						for s in config["Page-Settings"]["slideshows"].split(" "):
+							slideshows.append(s)
+					except KeyError:
+						pass
+	print(slideshows)
+	return slideshows
 
 def generateDirectory(slideshow):
 	directory = []
