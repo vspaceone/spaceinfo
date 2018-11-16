@@ -6,9 +6,12 @@ import configparser
 import sys
 import logging
 
-import SimpleHTTPServer
-import SocketServer
 import signal
+
+import flask
+app = flask.Flask(__name__)
+
+
 
 # Constants
 VERSION_MAJOR = 0
@@ -40,17 +43,16 @@ def sigint_handler(_signo, _stack_frame):
 	logger.info("SIGINT received. Cleaning up...")
 	sys.exit(0)
 
+logger.info("Running version "+VERSION)
+logger.info("Starting server...")
+signal.signal(signal.SIGTERM, sigterm_handler)
+signal.signal(signal.SIGINT, sigint_handler)
 
-class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
-	def do_POST(s):
-		s.send_response(200)
-		s.send_header("Content-type","application/json")
-		s.end_headers()
-	def do_GET(s):
-		s.send_response(200)
-		s.send_header("Content-type","application/json; charset=utf-8")
-		s.end_headers()
-		s.wfile.write(generateDirectory("internal"))
+#def do_GET(s):
+#	s.send_response(200)
+#	s.send_header("Content-type","application/json; charset=utf-8")
+#	s.end_headers()
+#	s.wfile.write(generateDirectory("internal"))
 
 def printUsage():
 	print("Usage: server.py <slideshow> <servername>")
@@ -60,21 +62,29 @@ def printUsage():
 	print("            so the local pages could be prefixed.")
 	print("            Don't forget http(s)://")
 
-def main():
-	httpd = SocketServer.TCPServer((IP,PORT), ServerHandler)
 
-	try:
-		httpd.serve_forever()
-	finally:
-		httpd.server_close()
-		logger.info("Server killed")
+@app.route("/shows/<showname>.json")
+def loadShowJSON(showname):
+	resp = flask.make_response(generateDirectory(showname), 200)
+	resp.headers["Content-type"] = "application/json; charset=utf-8"
+	return resp
+
+@app.route("/shows/<showname>.html")
+def displayShow(showname):
+	resp = flask.make_response(flask.render_template('start.html', showname=showname), 200)
+	resp.headers["Content-type"] = "text/html; charset=utf-8"
+	return resp
+
+@app.route('/shows/pages/<path:path>')
+def sendStatic(path):
+    return flask.send_from_directory('pages', path)
 
 
 def generateDirectory(slideshow):
 	directory = []
 
 
-	servername = "http://spaceinfo.noppelmax.online/"
+	servername = ""
 	logger.info("Generating directory for slideshow %s" % slideshow)
 	DEFAULT_TIMEOUT = 10
 	p = os.path.relpath("pages")
@@ -115,15 +125,3 @@ def generateDirectory(slideshow):
 
 	ret = (json.dumps(directory, indent=2, sort_keys=True))
 	return ret
-
-if __name__ == '__main__':
-	logger.info("Running version "+VERSION)
-	logger.info("Starting server...")
-	signal.signal(signal.SIGTERM, sigterm_handler)
-	signal.signal(signal.SIGINT, sigint_handler)
-	main()
-else:
-	logger.error("Run this script as main pls!")
-
-
-
