@@ -21,9 +21,7 @@
 
 		})
 
-
-		var URL = "";
-		window.setInterval(function () {
+		var nextPage = function() {
 			$.getJSON("{{ showname }}.json", function (data) {
 				var d;
 				do {
@@ -32,10 +30,14 @@
 				console.log("Loading",data[d].link);
 				var URL = data[d].link;
 				$('#frame').attr('src', URL);
-
-
+				console.log("Waiting for",data[d].timeout,"Secs")
+				window.setTimeout(nextPage, data[d].timeout*1000);
 			});
-		}, 3000);
+
+		}
+
+		var URL = "";
+		nextPage();
 	</script>
 
 </head>

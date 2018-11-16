@@ -83,7 +83,6 @@ def sendStatic(path):
 def generateDirectory(slideshow):
 	directory = []
 
-
 	servername = ""
 	logger.info("Generating directory for slideshow %s" % slideshow)
 	DEFAULT_TIMEOUT = 10
