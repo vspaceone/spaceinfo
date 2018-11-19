@@ -58,7 +58,7 @@ def printUsage():
 @app.route("/")
 def listShows():
 	print(getShows())
-	resp = flask.make_response(flask.render_template('overview.html', shows = getShows()), 200)
+	resp = flask.make_response(flask.render_template('home.html', shows = getShows()), 200)
 	resp.headers["Content-type"] = "text/html; charset=utf-8"
 	return resp
 
@@ -95,8 +95,7 @@ def getShows():
 							slideshows.append(s)
 					except KeyError:
 						pass
-	print(slideshows)
-	return slideshows
+	return list(set(slideshows))
 
 def generateDirectory(slideshow):
 	directory = []
