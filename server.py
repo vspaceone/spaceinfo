@@ -11,8 +11,6 @@ import signal
 import flask
 app = flask.Flask(__name__)
 
-
-
 # Constants
 VERSION_MAJOR = 0
 VERSION_MINOR = 1
@@ -55,12 +53,7 @@ signal.signal(signal.SIGINT, sigint_handler)
 #	s.wfile.write(generateDirectory("internal"))
 
 def printUsage():
-	print("Usage: server.py <slideshow> <servername>")
-	print("slideshow:  Adds only pages where this slideshow is")
-	print("            noted in the configfile.")
-	print("servername: Name the server spaceinfo is running on,")
-	print("            so the local pages could be prefixed.")
-	print("            Don't forget http(s)://")
+	print("Usage: server.py")
 
 @app.route("/")
 def listShows():
