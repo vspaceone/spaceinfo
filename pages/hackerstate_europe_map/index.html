@@ -121,14 +121,14 @@
                                 closedSpaces.addFeature(f);
                             }
                         } else if (data.api == "0.12" || data.api == "0.11" || data.api == "0.10" || data.api == "0.9" || data.api == "0.8") {
-                            
+
                             if (data.open == true) {
                                 openSpaces.addFeature(f);
                             } else {
                                 closedSpaces.addFeature(f);
                             }
                         } else {
-                            
+
                         }
                     } catch (e) {
                         console.log("Error: Unknown API Version", data)
@@ -145,6 +145,8 @@
         window.setInterval(update, 100000);
         update();
     </script>
+
+    <div style="position: absolute; bottom: 4; right: 4;"><a style="color: gray; text-decoration: none;" href="impressum.html">Impressum und Datenschutzerklärung</a></div>
 
 </body>
 
