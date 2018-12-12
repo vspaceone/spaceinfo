@@ -4,9 +4,20 @@
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	 crossorigin="anonymous"></script>
+	 <!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+ <!-- Optional theme -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+ <!-- Latest compiled and minified JavaScript -->
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<style>
 		body {
 			margin: 0;
+			margin-left: 10%;
+			margin-right: 10%;
+			margin-bottom: 50px;
 			padding: 0;
 		}
 	</style>
@@ -21,10 +32,10 @@
 <body>
 	<h1>Spaceinfo v1.1 Interface</h1>
 	<h2>How it works!</h2>
-	You run your Browser on any device in kioskmode and select one of the slideshows available.
+	<p>You run your Browser on any device in kioskmode and select one of the slideshows available.</p>
 
 	<h2>Slideshows</h2>
-	Every page could be part of multiple slideshows. Select which slideshow it should be part of in settings of the page.
+	<p>Every page could be part of multiple slideshows. Select which slideshow it should be part of in settings of the page.</p>
 
 	<h2>Available Slideshows<h2>
 		<ul>
@@ -34,11 +45,29 @@
 		</ul>
 
 		<h2>New Page</h2>
-		Add a new page by clicking <a href="?action=newpage">here (not implemented)</a>
+		<p>Add a new page by clicking <a href="?action=newpage">here (not implemented)</a></p>
+		<p>For the moment you could add pages by making a git commit to <a href="https://github.com/vspaceone/spaceinfo">github spaceinfo Branch: firefoxPages</a>.</p>
 
 		<h2>New slideshow</h2>
-		Add a new slideshow by clicking <a href="?action=slideshow">here (not implemented)</a>
+		<p>Add a new slideshow by clicking <a href="?action=slideshow">here (not implemented)</a></p>
+		<p>You could add a new Slideshow just by write a new string in the config.ini files.</p>
 
+		<h2>config.ini Files</h2>
+		<pre>
+[Page-Settings]
+# If external link is set; The link is used instead of the local index.html file
+#external_link = https://www.netzfrequenz.info/charts/gauge_full.php
+
+# If timeout is set; The page will be shown for this time in seconds. If not set, the default timeout will be used
+#timeout = 42
+
+# In which slideshow should this page be? You could specify multiple.
+slideshows = internal
+		</pre>
+		Put a <i>config.ini</i> file in any subfolder of <i>pages</i>.
+
+		<h2>Questions</h2>
+		<p>For questions ask max</p>
 
 	</body>
 

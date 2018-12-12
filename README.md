@@ -15,6 +15,12 @@ sudo systemctl enable spaceinfo
 sudo systemctl start spaceinfo
 ```
 
+##  FirefoxPages Install
+```
+pip install flask
+bash run
+```
+
 ## Wie kann ich Pages (nur FirefoxPages Branch)
 Leg einen Unterordner von `pages` an, in dem eine `index.html` oder eine `link.txt` Datei liegt. Wird eine `link.txt` Datei gefunden wird der darin enthaltene Link geöffnet. Andern falls wird die `index.html` angezeigt.
 
