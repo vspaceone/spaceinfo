@@ -187,7 +187,7 @@
               durM = parseM(itm.duration);
               edate.setHours(edate.getHours() + durH);
               edate.setMinutes(edate.getMinutes() + durM);
-              console.log(sdate.getFullYear());
+              //console.log(sdate.getFullYear());
 
               item = {
                   title: itm.title,
@@ -210,49 +210,53 @@
               items.push(item);
             });
           });
-          items.sort(function(a,b){
-            return new Date(a.date) - new Date(b.date);
-          })
-
-          items = items.filter(function(el) { return el.date > Date.now(); });
-          //items = items.filter(function(el) { return el.date > new Date("2018-12-29T15:00:00+01:00"); });
-
-          $.each(items, function(i){
-            console.log(i);
-            if(items[i].room == "Adams"){
-              items_a.push(items[i]);
-            }
-            if(items[i].room == "Borg"){
-              items_b.push(items[i]);
-            }
-            if(items[i].room == "Clarke"){
-              items_c.push(items[i]);
-            }
-            if(items[i].room == "Dijkstra"){
-              items_d.push(items[i]);
-            }
-            if(items[i].room == "Eliza"){
-              items_e.push(items[i]);
-            }
-          });
-
-          var template = $('#news_template').html();
-          Mustache.parse(template);   // optional, speeds up future uses
-          var rendered = Mustache.render(template, {"items": items_a, "roomname":"Adams"});
-          $('#cards_adams').html(rendered);
-
-          rendered = Mustache.render(template, {"items": items_b, "roomname":"Borg"});
-          $('#cards_borg').html(rendered);
-
-          rendered = Mustache.render(template, {"items": items_c, "roomname":"Clarke"});
-          $('#cards_clarke').html(rendered);
-
-          rendered = Mustache.render(template, {"items": items_d, "roomname":"Dijkstra"});
-          $('#cards_dijkstra').html(rendered);
-
-          rendered = Mustache.render(template, {"items": items_e, "roomname":"Eliza"});
-          $('#cards_eliza').html(rendered);
         });
+        items.sort(function(a,b){
+          return new Date(a.date) - new Date(b.date);
+        })
+
+        items = items.filter(function(el) { return el.date > Date.now(); });
+        //items = items.filter(function(el) { return el.date > new Date("2018-12-29T15:00:00+01:00"); });
+
+        $.each(items, function(i){
+
+          if(items[i].title == "Locked up science"){
+            console.log(items[i]);
+          }
+          //console.log(i);
+          if(items[i].room == "Adams"){
+            items_a.push(items[i]);
+          }
+          if(items[i].room == "Borg"){
+            items_b.push(items[i]);
+          }
+          if(items[i].room == "Clarke"){
+            items_c.push(items[i]);
+          }
+          if(items[i].room == "Dijkstra"){
+            items_d.push(items[i]);
+          }
+          if(items[i].room == "Eliza"){
+            items_e.push(items[i]);
+          }
+        });
+
+        var template = $('#news_template').html();
+        Mustache.parse(template);   // optional, speeds up future uses
+        var rendered = Mustache.render(template, {"items": items_a, "roomname":"Adams"});
+        $('#cards_adams').html(rendered);
+
+        rendered = Mustache.render(template, {"items": items_b, "roomname":"Borg"});
+        $('#cards_borg').html(rendered);
+
+        rendered = Mustache.render(template, {"items": items_c, "roomname":"Clarke"});
+        $('#cards_clarke').html(rendered);
+
+        rendered = Mustache.render(template, {"items": items_d, "roomname":"Dijkstra"});
+        $('#cards_dijkstra').html(rendered);
+
+        rendered = Mustache.render(template, {"items": items_e, "roomname":"Eliza"});
+        $('#cards_eliza').html(rendered);
       });
     });
 
