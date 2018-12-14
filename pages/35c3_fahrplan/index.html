@@ -102,14 +102,85 @@
     {{/items}}
   </script-->
 
+  <style>
+    .border-Security{
+      border-color: darkblue;
+    }
+
+    .text-Security{
+      color: darkblue;
+    }
+
+    .border-ArtCulture{
+      border-color: orange;
+    }
+
+    .text-ArtCulture{
+      color: orange;
+    }
+
+    .border-CCC{
+      border-color: gray;
+    }
+
+    .text-CCC{
+      color: gray;
+    }
+
+    .border-EthicsSocietyPolitics{
+      border-color: red;
+    }
+
+    .text-EthicsSocietyPolitics{
+      color: red;
+    }
+
+    .border-HardwareMaking{
+      border-color: purple;
+    }
+
+    .text-HardwareMaking{
+      color: purple;
+    }
+
+    .border-Resilience{
+      border-color: blue;
+    }
+
+    .text-Resilience{
+      color: blue;
+    }
+
+    .border-Science{
+      border-color: green;
+    }
+
+    .text-Science{
+      color: green;
+    }
+
+    .card{
+      margin: 5px;
+    }
+
+  </style>
+
   <script  id="news_template" type="x-tmpl-mustache">
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h2 class="card-title">{{roomname}}</h2>
+    </div>
+  </div>
   {{#items}}
-    <div class="card">
+    <div class="card border-{{trackTrimmed}}">
       <div class="card-body">
-        <h5 class="card-title">{{title}}</h5>
+        <a href="{{url}}"><h5 class="card-title text-{{trackTrimmed}}">{{title}}</h5></a>
         <h6 class="card-subtitle mb-2 text-muted">{{author}}</h6>
-        <p class="card-text">{{description}}</p>
-        <a href="#" class="btn btn-primary">{{track}}</a>
+        <p class="card-text">{{room}}, {{datestring}}</p>
+        <p class="card-text"><small>{{abstract}}</small></p>
+        <p class="card-text"><small class="text-muted">Track: {{track}}</small></p>
+
       </div>
     </div>
     {{/items}}
@@ -117,10 +188,26 @@
 </head>
 
 <body>
-
-    <div class="card-columns" id="news">
+  <div class="card-group">
+    <div class="card-column" style="width: 20%;" id="cards_adams">
 
     </div>
+    <div class="card-column" style="width: 20%;"  id="cards_borg">
+
+    </div>
+    <div class="card-column" style="width: 20%;"  id="cards_clarke">
+
+    </div>
+    <div class="card-column" style="width: 20%;"  id="cards_dijkstra">
+
+    </div>
+    <div class="card-column" style="width: 20%;"  id="cards_eliza">
+
+    </div>
+  </div>
+  <div>
+    <p class="text-center">35c3fahrplan_v1.0, MIT Licence Maximilian Noppel 2018</p>
+  </div>
 
     <script>
     Number.prototype.pad = function(size) {
@@ -130,6 +217,11 @@
     }
 
     items = []
+    items_a = []
+    items_b = []
+    items_c = []
+    items_d = []
+    items_e = []
 
     $( document ).ready(function() {
       i = 0
@@ -155,12 +247,16 @@
               item = {
                   title: itm.title,
                   link: "link",
-                  description: room + ", " + d.getDate() + "." + (d.getMonth()+1) + ", " + d.getHours().pad(2) + ":" + d.getMinutes().pad(2),
+                  datestring: d.getDate() + "." + (d.getMonth()+1) + ", " + d.getHours().pad(2) + ":" + d.getMinutes().pad(2),
                   room: room,
+                  description: itm.description,
+                  abstract: itm.abstract,
                   author: authors,
                   date: d,
                   track: itm.track,
-                  type: itm.type
+                  type: itm.type,
+                  url: itm.url,
+                  trackTrimmed: itm.track.replace(/,/g, '').replace(/&/g, '').replace(/ /g, '')
               };
 
               items.push(item);
@@ -173,10 +269,41 @@
           //items = items.filter(function(el) { return el.date > Date.now(); });
           items = items.filter(function(el) { return el.date > new Date("2018-12-29T15:00:00+01:00"); });
 
+          $.each(items, function(i){
+            console.log(i);
+            if(items[i].room == "Adams"){
+              items_a.push(items[i]);
+            }
+            if(items[i].room == "Borg"){
+              items_b.push(items[i]);
+            }
+            if(items[i].room == "Clarke"){
+              items_c.push(items[i]);
+            }
+            if(items[i].room == "Dijkstra"){
+              items_d.push(items[i]);
+            }
+            if(items[i].room == "Eliza"){
+              items_e.push(items[i]);
+            }
+          });
+
           var template = $('#news_template').html();
           Mustache.parse(template);   // optional, speeds up future uses
-          var rendered = Mustache.render(template, {"items": items});
-          $('#news').html(rendered);
+          var rendered = Mustache.render(template, {"items": items_a, "roomname":"Adams"});
+          $('#cards_adams').html(rendered);
+
+          rendered = Mustache.render(template, {"items": items_b, "roomname":"Borg"});
+          $('#cards_borg').html(rendered);
+
+          rendered = Mustache.render(template, {"items": items_c, "roomname":"Clarke"});
+          $('#cards_clarke').html(rendered);
+
+          rendered = Mustache.render(template, {"items": items_d, "roomname":"Dijkstra"});
+          $('#cards_dijkstra').html(rendered);
+
+          rendered = Mustache.render(template, {"items": items_e, "roomname":"Eliza"});
+          $('#cards_eliza').html(rendered);
         });
       });
     });
