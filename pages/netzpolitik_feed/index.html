@@ -33,6 +33,13 @@
 
         }
 
+        img {
+          max-width: 100%;
+          max-image: 100%;
+          width: 246px;
+          height: 138px;
+        }
+
 
 
         .news {
@@ -88,7 +95,7 @@
 
 <body>
     <div id="title">
-        # vspace.one Wiki Feed
+        # Netzpolitik.org Feed
     </div>
     <div id="news">
 
@@ -112,6 +119,11 @@
                 //$('#news').append($('<pre><code>## ' + item.title + '</code><code> - ' + item.pubDate + '</code><code> + ' + item.description + '</code></pre>'));
                 //etc...
             });
+            //$("img").width(200);
+        });
+
+        $( document ).ready(function() {
+          console.log( "ready!" );
         });
 
 
