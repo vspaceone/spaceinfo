@@ -23,17 +23,22 @@
 
 		var nextPage = function() {
 			$.getJSON("{{ showname }}.json", function (data) {
-				var d;
-				do {
-					d = Math.floor((Math.random() * data.length));
-				} while( URL == data[d].link);
-				console.log("Loading",data[d].link);
-				var URL = data[d].link;
-				$('#frame').attr('src', URL);
-				console.log("Waiting for",data[d].timeout,"Secs")
-				window.setTimeout(nextPage, data[d].timeout*1000);
-			});
+				try{
+					var d;
+					do {
+						d = Math.floor((Math.random() * data.length));
+					} while( URL == data[d].link);
+					console.log("Loading",data[d].link);
+					var URL = data[d].link;
+					$('#frame').attr('src', URL);
+					console.log("Waiting for",data[d].timeout,"Secs")
+				}catch(err){
 
+
+				}finally{
+					window.setTimeout(nextPage, data[d].timeout*10);
+				}
+			});
 		}
 
 		var URL = "";
