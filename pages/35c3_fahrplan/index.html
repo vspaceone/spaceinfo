@@ -1,0 +1,338 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="sugar2.0.4.js"></script>
+  <style>
+    .border-Security{
+      border-color: darkblue;
+    }
+
+    .text-Security{
+      color: darkblue;
+    }
+
+    .border-ArtCulture{
+      border-color: orange;
+    }
+
+    .text-ArtCulture{
+      color: orange;
+    }
+
+    .border-CCC{
+      border-color: gray;
+    }
+
+    .text-CCC{
+      color: gray;
+    }
+
+    .border-EthicsSocietyPolitics{
+      border-color: red;
+    }
+
+    .text-EthicsSocietyPolitics{
+      color: red;
+    }
+
+    .border-HardwareMaking{
+      border-color: purple;
+    }
+
+    .text-HardwareMaking{
+      color: purple;
+    }
+
+    .border-Resilience{
+      border-color: blue;
+    }
+
+    .text-Resilience{
+      color: blue;
+    }
+
+    .border-Science{
+      border-color: green;
+    }
+
+    .text-Science{
+      color: green;
+    }
+
+    .card{
+      margin: 5px;
+    }
+
+
+  </style>
+
+  <script  id="news_template" type="x-tmpl-mustache">
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h2 class="card-title">{{roomname}}</h2>
+    </div>
+  </div>
+  {{#items}}
+    <div class="card border-{{trackTrimmed}} cardhidden-{{hidden}}" id="id{{id}}">
+      <div class="card-body">
+        <a href="{{url}}"><h5 class="card-title text-{{trackTrimmed}}">{{title}}</h5></a>
+        <h6 class="card-subtitle mb-2 text-muted">{{author}}</h6>
+        <p class="card-text">{{room}}, {{datestring}}</p>
+        <p class="card-text"><small>{{abstract}} ({{lang}})</small></p>
+        <p class="card-text"><small class="text-muted">Track: {{track}}</small></p>
+      </div>
+    </div>
+    {{/items}}
+    </script>
+</head>
+
+<body>
+  <!-- Matomo -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://noppelmax.online/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '4']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+<img src="https://noppelmax.online/piwik/piwik.php?idsite=4&amp;rec=1" style="border:0" alt="" />
+
+  <div class="card-group">
+    <div class="card-column" style="width: 20%;" id="cards_adams">
+
+    </div>
+    <div class="card-column" style="width: 20%;"  id="cards_borg">
+
+    </div>
+    <div class="card-column" style="width: 20%;"  id="cards_clarke">
+
+    </div>
+    <div class="card-column" style="width: 20%;"  id="cards_dijkstra">
+
+    </div>
+    <div class="card-column" style="width: 20%;"  id="cards_eliza">
+
+    </div>
+  </div>
+  <div>
+    <p class="text-center">35c3fahrplan_v1.1, MIT Licence Maximilian Noppel 2018</p>
+  </div>
+
+    <script>
+
+    function parseH( t ) {
+      var d = new Date();
+      var time = t.match( /(\d+)(?::(\d\d))?\s*(p?)/ );
+      return parseInt( time[1]) + (time[3] ? 12 : 0);
+    }
+
+    function parseM( t ) {
+      var d = new Date();
+      var time = t.match( /(\d+)(?::(\d\d))?\s*(p?)/ );
+      return parseInt( time[2]) || 0 ;
+    }
+
+    Number.prototype.pad = function(size) {
+    var s = String(this);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
+    }
+
+    items = []
+    items_a = []
+    items_b = []
+    items_c = []
+    items_d = []
+    items_e = []
+
+    $( document ).ready(function() {
+      i = 0
+      $.getJSON("https://feeds.noppelmax.online/schedule.json", function (data) {
+        console.log(data);
+        $.each(data.schedule.conference.days, function(day){
+          console.log(day)
+          $.each(data.schedule.conference.days[day].rooms, function(room){
+            console.log(room);
+            $.each(data.schedule.conference.days[day].rooms[room], function(idx){
+              itm = data.schedule.conference.days[day].rooms[room][idx]
+              authors = ""
+              $.each(itm.persons,function(p){
+                if(authors != ""){
+                  authors += ", ";
+                }
+                authors = authors + itm.persons[p].public_name;
+              })
+
+              sdate = new Date(itm.date);
+              edate = new Date(itm.date);
+              durH = parseH(itm.duration);
+              durM = parseM(itm.duration);
+              edate.setHours(edate.getHours() + durH);
+              edate.setMinutes(edate.getMinutes() + durM);
+              //console.log(sdate.getFullYear());
+
+              item = {
+                  title: itm.title,
+                  link: "link",
+                  datestring: sdate.getDate() + "." + (sdate.getMonth()+1) + ", " + sdate.getHours().pad(2) + ":" + sdate.getMinutes().pad(2) + " bis " + edate.getHours().pad(2) + ":" + edate.getMinutes().pad(2),
+                  room: room,
+                  description: itm.description,
+                  abstract: itm.abstract,
+                  author: authors,
+                  date: sdate,
+                  track: itm.track,
+                  type: itm.type,
+                  url: itm.url,
+                  duration: itm.duration,
+                  end: edate,
+                  lang: itm.language,
+                  id: itm.id,
+                  hidden: false,
+                  trackTrimmed: itm.track.replace(/,/g, '').replace(/&/g, '').replace(/ /g, '')
+              };
+
+              items.push(item);
+            });
+          });
+        });
+        items.sort(function(a,b){
+          return new Date(a.date) - new Date(b.date);
+        })
+
+        items = items.filter(function(el) { return el.date > Date.now(); });
+        //items = items.filter(function(el) { return el.date > new Date("2018-12-29T15:00:00+01:00"); });
+
+        $.each(items, function(i){
+
+          if(items[i].title == "Locked up science"){
+            console.log(items[i]);
+          }
+          //console.log(i);
+          if(items[i].room == "Adams"){
+            items_a.push(items[i]);
+          }
+          if(items[i].room == "Borg"){
+            items_b.push(items[i]);
+          }
+          if(items[i].room == "Clarke"){
+            items_c.push(items[i]);
+          }
+          if(items[i].room == "Dijkstra"){
+            items_d.push(items[i]);
+          }
+          if(items[i].room == "Eliza"){
+            items_e.push(items[i]);
+          }
+        });
+
+        var template = $('#news_template').html();
+        Mustache.parse(template);   // optional, speeds up future uses
+        var rendered = Mustache.render(template, {"items": items_a, "roomname":"Adams"});
+        $('#cards_adams').html(rendered);
+
+        rendered = Mustache.render(template, {"items": items_b, "roomname":"Borg"});
+        $('#cards_borg').html(rendered);
+
+        rendered = Mustache.render(template, {"items": items_c, "roomname":"Clarke"});
+        $('#cards_clarke').html(rendered);
+
+        rendered = Mustache.render(template, {"items": items_d, "roomname":"Dijkstra"});
+        $('#cards_dijkstra').html(rendered);
+
+        rendered = Mustache.render(template, {"items": items_e, "roomname":"Eliza"});
+        $('#cards_eliza').html(rendered);
+      });
+
+      window.setInterval(function(){
+        console.log("Refiltering...");
+
+        dat = Date.now();
+        $.each(items_a, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_a[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+
+          }
+        });
+        $.each(items_b, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_b[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+          }
+        });
+        $.each(items_c, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_c[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+          }
+        });
+        $.each(items_d, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_d[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+          }
+        });
+        $.each(items_e, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_e[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+          }
+        });
+
+        //$("#id9985").fadeOut();
+        console.log($("#id9985"));
+      },5000);
+    });
+
+
+
+
+    </script>
+		<script>
+    /*
+			speed = 30
+			function pageScroll() {
+    		window.scrollBy(0,1);
+    		scrolldelay = setTimeout(pageScroll,speed);
+			}
+			setTimeout(pageScroll,4000);
+      */
+		</script>
+
+</body>
+
+</html>

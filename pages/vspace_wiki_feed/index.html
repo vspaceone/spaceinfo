@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 25px;
+            color: greenyellow;
+            background-color: #1e2721;
+            font-family: 'Courier New', Courier, monospace;
+
+        }
+
+        #title {
+            font-size: 2em;
+            font-weight: bold;
+            width: 100%;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 20px;
+            padding-bottom: 10px;
+						color: #19abff;
+
+        }
+
+
+
+        .news {
+            width: 100%;
+            padding-left: 40px;
+            padding-right: 40px;
+            animation: flicker 0.15s infinite;
+        }
+
+        .news_node {
+            width: 100%;
+        }
+
+        .news_title {
+            font-size: 1em;
+            padding-bottom: 10px;
+            padding-left: 80px;
+            padding-right: 40px;
+            font-weight: bold;
+						color: #f440ff;
+        }
+
+        .news_date {
+            font-size: 1em;
+            padding-left: 80px;
+            padding-right: 40px;
+						color: #ff8a00;
+        }
+
+        .news_content {
+            font-size: 1em;
+            padding-bottom: 20px;
+            padding-left: 80px;
+            padding-right: 40px;
+        }
+
+        .news_lineno {
+            float: left;
+            text-align: right;
+            width: 80px;
+						color: #19abff;
+        }
+        .news_lineno_slash {
+						color: #ff8a00;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="title">
+        # vspace.one Wiki Feed
+    </div>
+    <div id="news">
+
+    </div>
+
+    <script>
+        $.get("https://feeds.noppelmax.online/wikivspace.xml", function (data) {
+            var $XML = $(data);
+            var i = 0;
+            $XML.find("item").each(function () {
+                var $this = $(this),
+                    item = {
+                        title: $this.find("title").text(),
+                        link: $this.find("link").text(),
+                        description: $this.find("description").text(),
+                        pubDate: $this.find("pubDate").text(),
+                        author: $this.find("author").text()
+                    };
+								$('#news').append($('<div class="news_node"><div class="clear"></div><div class="news_lineno">'+(++i)+' <span class="news_lineno_slash">|</span></div><div class="news_title">## ' + item.title + '</div><div class="clear"></div><div class="news_lineno">'+(++i)+' <span class="news_lineno_slash">|</span></div><div class="news_date">' + item.pubDate + '"</div><div class="clear"></div><div class="news_lineno">'+(++i)+' <span class="news_lineno_slash">|</span></div><div class="news_content">' + item.description + "</div></div>"));
+
+                //$('#news').append($('<pre><code>## ' + item.title + '</code><code> - ' + item.pubDate + '</code><code> + ' + item.description + '</code></pre>'));
+                //etc...
+            });
+        });
+
+
+    </script>
+		<script>
+			speed = 30
+			function pageScroll() {
+    		window.scrollBy(0,1);
+    		scrolldelay = setTimeout(pageScroll,speed);
+			}
+			setTimeout(pageScroll,4000);
+		</script>
+
+</body>
+
+</html>
