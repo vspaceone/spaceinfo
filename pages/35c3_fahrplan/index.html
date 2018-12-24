@@ -73,6 +73,7 @@
       margin: 5px;
     }
 
+
   </style>
 
   <script  id="news_template" type="x-tmpl-mustache">
@@ -83,7 +84,7 @@
     </div>
   </div>
   {{#items}}
-    <div class="card border-{{trackTrimmed}}">
+    <div class="card border-{{trackTrimmed}} cardhidden-{{hidden}}" id="id{{id}}">
       <div class="card-body">
         <a href="{{url}}"><h5 class="card-title text-{{trackTrimmed}}">{{title}}</h5></a>
         <h6 class="card-subtitle mb-2 text-muted">{{author}}</h6>
@@ -204,6 +205,8 @@
                   duration: itm.duration,
                   end: edate,
                   lang: itm.language,
+                  id: itm.id,
+                  hidden: false,
                   trackTrimmed: itm.track.replace(/,/g, '').replace(/&/g, '').replace(/ /g, '')
               };
 
@@ -258,6 +261,61 @@
         rendered = Mustache.render(template, {"items": items_e, "roomname":"Eliza"});
         $('#cards_eliza').html(rendered);
       });
+
+      window.setInterval(function(){
+        console.log("Refiltering...");
+
+        dat = Date.now();
+        $.each(items_a, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_a[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+
+          }
+        });
+        $.each(items_b, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_b[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+          }
+        });
+        $.each(items_c, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_c[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+          }
+        });
+        $.each(items_d, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_d[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+          }
+        });
+        $.each(items_e, function(i){
+          if(!(items_a[i].date > dat)){
+            $("#id"+String(items_e[i].id)).fadeTo("slow", 0.01, function(){ //fade
+             $(this).slideUp("slow", function() { //slide up
+                 $(this).remove(); //then remove from the DOM
+             });
+         });
+          }
+        });
+
+        //$("#id9985").fadeOut();
+        console.log($("#id9985"));
+      },5000);
     });
 
 
