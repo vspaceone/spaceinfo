@@ -89,7 +89,7 @@
   <a href="{{url}}"><h5 class="card-title text-{{trackTrimmed}}">{{title}}</h5></a>
   <h6 class="card-subtitle mb-2 text-muted">{{author}}</h6>
   <p class="card-text">{{room}}, {{datestring}}</p>
-
+	<p class="card-text"><small>{{abstract}} ({{lang}})</small></p>
   <p class="card-text"><small class="text-muted">Track: {{track}}</small></p>
   </div>
   </div>
@@ -117,19 +117,19 @@
   <img src="https://noppelmax.online/piwik/piwik.php?idsite=4&amp;rec=1" style="border:0" alt="" />
 
   <div class="card-group">
-    <div class="card-column" style="width: 20%;" id="cards_adams">
+    <div class="card-column" style="width: 20%;" id="cards_Adams">
 
     </div>
-    <div class="card-column" style="width: 20%;"  id="cards_borg">
+    <div class="card-column" style="width: 20%;"  id="cards_Borg">
 
     </div>
-    <div class="card-column" style="width: 20%;"  id="cards_clarke">
+    <div class="card-column" style="width: 20%;"  id="cards_Clarke">
 
     </div>
-    <div class="card-column" style="width: 20%;"  id="cards_dijkstra">
+    <div class="card-column" style="width: 20%;"  id="cards_Dijkstra">
 
     </div>
-    <div class="card-column" style="width: 20%;"  id="cards_eliza">
+    <div class="card-column" style="width: 20%;"  id="cards_Eliza">
 
     </div>
   </div>
@@ -236,20 +236,11 @@
 
       var template = $('#news_template').html();
       Mustache.parse(template);   // optional, speeds up future uses
-      var rendered = Mustache.render(template, {"items": itemsPerRoom[0], "roomname":"Adams"});
-      $('#cards_adams').html(rendered);
 
-      rendered = Mustache.render(template, {"items": itemsPerRoom[1], "roomname":"Borg"});
-      $('#cards_borg').html(rendered);
-
-      rendered = Mustache.render(template, {"items": itemsPerRoom[2], "roomname":"Clarke"});
-      $('#cards_clarke').html(rendered);
-
-      rendered = Mustache.render(template, {"items": itemsPerRoom[3], "roomname":"Dijkstra"});
-      $('#cards_dijkstra').html(rendered);
-
-      rendered = Mustache.render(template, {"items": itemsPerRoom[4], "roomname":"Eliza"});
-      $('#cards_eliza').html(rendered);
+      $.each(rooms,function(r){
+        var rendered = Mustache.render(template, {"items": itemsPerRoom[r], "roomname":rooms[r]});
+        $("#cards_"+rooms[r]).html(rendered);
+      });
     });
 
     window.setInterval(function(){
