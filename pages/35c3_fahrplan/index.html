@@ -89,7 +89,7 @@
         <a href="{{url}}"><h5 class="card-title text-{{trackTrimmed}}">{{title}}</h5></a>
         <h6 class="card-subtitle mb-2 text-muted">{{author}}</h6>
         <p class="card-text">{{room}}, {{datestring}}</p>
-        <p class="card-text"><small>{{abstract}} ({{lang}})</small></p>
+
         <p class="card-text"><small class="text-muted">Track: {{track}}</small></p>
       </div>
     </div>
@@ -157,21 +157,19 @@
     return s;
     }
 
-    items = []
-    items_a = []
-    items_b = []
-    items_c = []
-    items_d = []
-    items_e = []
+    items = [];
+    //itemsPerRoom = [][];
+    items_a = [];
+    items_b = [];
+    items_c = [];
+    items_d = [];
+    items_e = [];
 
     $( document ).ready(function() {
       i = 0
       $.getJSON("https://feeds.noppelmax.online/schedule.json", function (data) {
-        console.log(data);
         $.each(data.schedule.conference.days, function(day){
-          console.log(day)
           $.each(data.schedule.conference.days[day].rooms, function(room){
-            console.log(room);
             $.each(data.schedule.conference.days[day].rooms[room], function(idx){
               itm = data.schedule.conference.days[day].rooms[room][idx]
               authors = ""
@@ -218,15 +216,14 @@
           return new Date(a.date) - new Date(b.date);
         })
 
-        items = items.filter(function(el) { return el.date > Date.now(); });
+        dat = new Date(Date.now());
+        dat.setDate(dat.getDate());
+        dat.setMinutes(dat.getMinutes() - 5);
+
+        items = items.filter(function(el) { return el.date > dat; });
         //items = items.filter(function(el) { return el.date > new Date("2018-12-29T15:00:00+01:00"); });
 
         $.each(items, function(i){
-
-          if(items[i].title == "Locked up science"){
-            console.log(items[i]);
-          }
-          //console.log(i);
           if(items[i].room == "Adams"){
             items_a.push(items[i]);
           }
@@ -265,19 +262,21 @@
       window.setInterval(function(){
         console.log("Refiltering...");
 
-        dat = Date.now();
+        dat = new Date(Date.now());
+        dat.setDate(dat.getDate());
+        dat.setMinutes(dat.getMinutes() - 5);
+
         $.each(items_a, function(i){
-          if(!(items_a[i].date > dat)){
+          if((items_a[i].date < dat)){
             $("#id"+String(items_a[i].id)).fadeTo("slow", 0.01, function(){ //fade
              $(this).slideUp("slow", function() { //slide up
                  $(this).remove(); //then remove from the DOM
              });
          });
-
           }
         });
         $.each(items_b, function(i){
-          if(!(items_a[i].date > dat)){
+          if((items_a[i].date < dat)){
             $("#id"+String(items_b[i].id)).fadeTo("slow", 0.01, function(){ //fade
              $(this).slideUp("slow", function() { //slide up
                  $(this).remove(); //then remove from the DOM
@@ -286,7 +285,7 @@
           }
         });
         $.each(items_c, function(i){
-          if(!(items_a[i].date > dat)){
+          if((items_a[i].date < dat)){
             $("#id"+String(items_c[i].id)).fadeTo("slow", 0.01, function(){ //fade
              $(this).slideUp("slow", function() { //slide up
                  $(this).remove(); //then remove from the DOM
@@ -295,7 +294,7 @@
           }
         });
         $.each(items_d, function(i){
-          if(!(items_a[i].date > dat)){
+          if((items_a[i].date < dat)){
             $("#id"+String(items_d[i].id)).fadeTo("slow", 0.01, function(){ //fade
              $(this).slideUp("slow", function() { //slide up
                  $(this).remove(); //then remove from the DOM
@@ -304,7 +303,7 @@
           }
         });
         $.each(items_e, function(i){
-          if(!(items_a[i].date > dat)){
+          if((items_a[i].date < dat)){
             $("#id"+String(items_e[i].id)).fadeTo("slow", 0.01, function(){ //fade
              $(this).slideUp("slow", function() { //slide up
                  $(this).remove(); //then remove from the DOM
