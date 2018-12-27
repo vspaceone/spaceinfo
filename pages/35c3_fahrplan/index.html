@@ -81,6 +81,20 @@
     margin: 5px;
   }
 
+  .timeto {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+  }
+
+  .future {
+    color: green;
+  }
+
+  .past {
+    color: red;
+  }
+
 
   </style>
 
@@ -99,6 +113,7 @@
   <p class="card-text">{{room}}, {{datestring}}</p>
   <p class="card-text"><small>{{abstract}} ({{lang}})</small></p>
   <p class="card-text"><small class="text-muted">Track: {{track}}</small></p>
+  <p class="card-text timeto {{when}}">starts in <b id="hours{{id}}">{{hours}}</b>h <b id="mins{{id}}">{{mins}}</b>mins</p>
   </div>
   </div>
   {{/items}}
@@ -179,6 +194,12 @@
   $( document ).ready(function() {
     i = 0
     $.getJSON("https://feeds.noppelmax.online/schedule.json", function (data) {
+      dat = new Date(Date.now());
+      dat.setDate(dat.getDate()-2);
+      dat.setMinutes(dat.getMinutes() - 5);
+
+      datNow = new Date(Date.now());
+
       $.each(data.schedule.conference.days, function(day){
         $.each(data.schedule.conference.days[day].rooms, function(room){
           $.each(data.schedule.conference.days[day].rooms[room], function(idx){
@@ -198,6 +219,20 @@
             edate.setHours(edate.getHours() + durH);
             edate.setMinutes(edate.getMinutes() + durM);
             //console.log(sdate.getFullYear());
+            mins = 0;
+            hours = 0;
+            if(sdate >= new Date(Date.now())){
+              indate = new Date(sdate - datNow);
+              mins = ((indate.getDate()-1) * 24 * 60) + ((indate.getHours()-1) * 60) + indate.getMinutes();
+
+            }else{
+              indate = new Date(datNow - sdate);
+              mins = -(((indate.getDate()-1) * 24 * 60) + ((indate.getHours()-1) * 60) + indate.getMinutes());
+            }
+
+            hours = (mins / 60);
+            hours = Math.floor(hours);
+            mins = mins - (hours) * 60;
 
             item = {
               title: itm.title,
@@ -216,8 +251,16 @@
               lang: itm.language,
               id: itm.id,
               hidden: false,
+              mins: mins,
+              hours: hours,
               trackTrimmed: itm.track.replace(/,/g, '').replace(/&/g, '').replace(/ /g, '')
             };
+
+            if( hours >= 0){
+              item.when = "future";
+            }else{
+              item.when = "past";
+            }
 
             items.push(item);
           });
@@ -227,9 +270,7 @@
         return new Date(a.date) - new Date(b.date);
       })
 
-      dat = new Date(Date.now());
-      dat.setDate(dat.getDate());
-      dat.setMinutes(dat.getMinutes() - 5);
+
 
       items = items.filter(function(el) { return el.date > dat; });
       //items = items.filter(function(el) { return el.date > new Date("2018-12-29T15:00:00+01:00"); });
@@ -257,14 +298,51 @@
       dat = new Date(Date.now());
       dat.setDate(dat.getDate());
       dat.setMinutes(dat.getMinutes() - 5);
+
+      datNow = new Date(Date.now());
+
       $.each(itemsPerRoom, function(r){
         $.each(itemsPerRoom[r], function(i){
+
+          var mins = 0;
+          var hours = 0;
+          if(itemsPerRoom[r][i].date >= datNow){
+            indate = new Date(itemsPerRoom[r][i].date - datNow);
+            console.log(indate);
+            mins = ((indate.getDate()-1) * 24 * 60) + ((indate.getHours()-1) * 60) + indate.getMinutes();
+
+          }else{
+            indate = new Date(datNow - itemsPerRoom[r][i].date);
+            console.log(indate);
+            mins = -(((indate.getDate()-1) * 24 * 60) + ((indate.getHours()-1) * 60) + indate.getMinutes());
+          }
+          console.log(hours,mins);
+          hours = (mins / 60);
+          hours = Math.floor(hours);
+          mins = mins - (hours) * 60;
+
+          itemsPerRoom[r][i].mins = mins;
+          itemsPerRoom[r][i].hours = hours;
+
+
+          if( hours >= 0){
+            itemsPerRoom[r][i].when = "future";
+          }else{
+            itemsPerRoom[r][i].when = "past";
+            $("#id"+String(itemsPerRoom[r][i].id)+".future").addClass("past");
+            $("#id"+String(itemsPerRoom[r][i].id)+".past").removeClass("future");
+          }
+
+          $("#mins"+String(itemsPerRoom[r][i].id)).text(""+itemsPerRoom[r][i].mins);
+          $("#hours"+String(itemsPerRoom[r][i].id)).text(""+itemsPerRoom[r][i].hours);
+
           if((itemsPerRoom[r][i].date < dat)){
             $("#id"+String(itemsPerRoom[r][i].id)).fadeTo("slow", 0.01, function(){ //fade
               $(this).slideUp("slow", function() { //slide up
                 $(this).remove(); //then remove from the DOM
               });
             });
+
           }
         });
       });
