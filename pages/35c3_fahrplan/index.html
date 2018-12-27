@@ -196,7 +196,7 @@
     $.getJSON("https://feeds.noppelmax.online/schedule.json", function (data) {
       dat = new Date(Date.now());
       dat.setDate(dat.getDate());
-      dat.setMinutes(dat.getMinutes() - 100);
+      dat.setMinutes(dat.getMinutes() - 10);
 
       datNow = new Date(Date.now());
 
@@ -239,7 +239,7 @@
             mins = mins - (hours) * 60;
             rmins = mins;
             rhours = hours;
-            
+
             if(mins < 0){
               rmins = -mins;
             }
@@ -313,7 +313,7 @@
 
       dat = new Date(Date.now());
       dat.setDate(dat.getDate());
-      dat.setMinutes(dat.getMinutes() - 50);
+      dat.setMinutes(dat.getMinutes() - 10);
 
       datNow = new Date(Date.now());
 
