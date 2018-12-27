@@ -113,7 +113,7 @@
   <p class="card-text">{{room}}, {{datestring}}</p>
   <p class="card-text"><small>{{abstract}} ({{lang}})</small></p>
   <p class="card-text"><small class="text-muted">Track: {{track}}</small></p>
-  <p class="card-text timeto timeto{{id}} {{when}}"><small id="txt{{id}}">{{txt}} </small><b id="hours{{id}}"> {{hours}}</b>h <b id="mins{{id}}">{{mins}}</b>mins</p>
+  <p class="card-text timeto {{when}}" id="timeto{{id}}"><small id="txt{{id}}">{{txt}} </small><b id="hours{{id}}"> {{hours}}</b>h <b id="mins{{id}}">{{mins}}</b>mins</p>
   </div>
   </div>
   {{/items}}
@@ -330,6 +330,7 @@
             hours = (mins / 60);
             hours = Math.floor(hours);
             mins = mins - (hours) * 60;
+
             $("#mins"+String(itemsPerRoom[r][i].id)).text(""+mins);
             $("#hours"+String(itemsPerRoom[r][i].id)).text(""+hours);
 
@@ -343,9 +344,11 @@
             hours = Math.floor(hours);
             mins = mins - (hours) * 60;
 
-            $("#timeto"+String(itemsPerRoom[r][i].id)).addClass("past");
             $("#timeto"+String(itemsPerRoom[r][i].id)).removeClass("future");
-            $("#timeto"+String(itemsPerRoom[r][i].id)).text("running since");
+            $("#timeto"+String(itemsPerRoom[r][i].id)).addClass("past");
+
+            $("#txt"+String(itemsPerRoom[r][i].id)).text("running since ");
+
             $("#mins"+String(itemsPerRoom[r][i].id)).text(""+mins);
             $("#hours"+String(itemsPerRoom[r][i].id)).text(""+hours);
           }
