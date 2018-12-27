@@ -113,7 +113,7 @@
   <p class="card-text">{{room}}, {{datestring}}</p>
   <p class="card-text"><small>{{abstract}} ({{lang}})</small></p>
   <p class="card-text"><small class="text-muted">Track: {{track}}</small></p>
-  <p class="card-text timeto {{when}}">starts in <b id="hours{{id}}">{{hours}}</b>h <b id="mins{{id}}">{{mins}}</b>mins</p>
+  <p class="card-text timeto timeto{{id}} {{when}}"><small id="txt{{id}}">{{txt}} </small><b id="hours{{id}}"> {{hours}}</b>h <b id="mins{{id}}">{{mins}}</b>mins</p>
   </div>
   </div>
   {{/items}}
@@ -196,7 +196,7 @@
     $.getJSON("https://feeds.noppelmax.online/schedule.json", function (data) {
       dat = new Date(Date.now());
       dat.setDate(dat.getDate());
-      dat.setMinutes(dat.getMinutes() - 5);
+      dat.setMinutes(dat.getMinutes() - 100);
 
       datNow = new Date(Date.now());
 
@@ -231,8 +231,22 @@
             }
 
             hours = (mins / 60);
-            hours = Math.floor(hours);
+            if(mins < 0){
+              hours = Math.ceil(hours);
+            }else{
+              hours = Math.floor(hours);
+            }
             mins = mins - (hours) * 60;
+            rmins = mins;
+            rhours = hours;
+            
+            if(mins < 0){
+              rmins = -mins;
+            }
+
+            if(hours < 0){
+              rhours = -hours;
+            }
 
             item = {
               title: itm.title,
@@ -251,15 +265,17 @@
               lang: itm.language,
               id: itm.id,
               hidden: false,
-              mins: mins,
-              hours: hours,
+              mins: rmins,
+              hours: rhours,
               trackTrimmed: itm.track.replace(/,/g, '').replace(/&/g, '').replace(/ /g, '')
             };
 
-            if( hours >= 0){
-              item.when = "future";
-            }else{
+            if( hours < 0 || mins < 0){
               item.when = "past";
+              item.txt = "running since";
+            }else{
+              item.when = "future";
+              item.txt = "starts in";
             }
 
             items.push(item);
@@ -297,7 +313,7 @@
 
       dat = new Date(Date.now());
       dat.setDate(dat.getDate());
-      dat.setMinutes(dat.getMinutes() - 5);
+      dat.setMinutes(dat.getMinutes() - 50);
 
       datNow = new Date(Date.now());
 
@@ -311,30 +327,28 @@
             console.log(indate);
             mins = ((indate.getDate()-1) * 24 * 60) + ((indate.getHours()-1) * 60) + indate.getMinutes();
 
+            hours = (mins / 60);
+            hours = Math.floor(hours);
+            mins = mins - (hours) * 60;
+            $("#mins"+String(itemsPerRoom[r][i].id)).text(""+mins);
+            $("#hours"+String(itemsPerRoom[r][i].id)).text(""+hours);
+
           }else{
+
             indate = new Date(datNow - itemsPerRoom[r][i].date);
             console.log(indate);
-            mins = -(((indate.getDate()-1) * 24 * 60) + ((indate.getHours()-1) * 60) + indate.getMinutes());
+            mins = ((indate.getDate()-1) * 24 * 60) + ((indate.getHours()-1) * 60) + indate.getMinutes();
+
+            hours = (mins / 60);
+            hours = Math.floor(hours);
+            mins = mins - (hours) * 60;
+
+            $("#timeto"+String(itemsPerRoom[r][i].id)).addClass("past");
+            $("#timeto"+String(itemsPerRoom[r][i].id)).removeClass("future");
+            $("#timeto"+String(itemsPerRoom[r][i].id)).text("running since");
+            $("#mins"+String(itemsPerRoom[r][i].id)).text(""+mins);
+            $("#hours"+String(itemsPerRoom[r][i].id)).text(""+hours);
           }
-          console.log(hours,mins);
-          hours = (mins / 60);
-          hours = Math.floor(hours);
-          mins = mins - (hours) * 60;
-
-          itemsPerRoom[r][i].mins = mins;
-          itemsPerRoom[r][i].hours = hours;
-
-
-          if( hours >= 0){
-            itemsPerRoom[r][i].when = "future";
-          }else{
-            itemsPerRoom[r][i].when = "past";
-            $("#id"+String(itemsPerRoom[r][i].id)+".future").addClass("past");
-            $("#id"+String(itemsPerRoom[r][i].id)+".past").removeClass("future");
-          }
-
-          $("#mins"+String(itemsPerRoom[r][i].id)).text(""+itemsPerRoom[r][i].mins);
-          $("#hours"+String(itemsPerRoom[r][i].id)).text(""+itemsPerRoom[r][i].hours);
 
           if((itemsPerRoom[r][i].date < dat)){
             $("#id"+String(itemsPerRoom[r][i].id)).fadeTo("slow", 0.01, function(){ //fade
