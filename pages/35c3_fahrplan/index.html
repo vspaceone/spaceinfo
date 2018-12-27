@@ -195,7 +195,7 @@
     i = 0
     $.getJSON("https://feeds.noppelmax.online/schedule.json", function (data) {
       dat = new Date(Date.now());
-      dat.setDate(dat.getDate()-2);
+      dat.setDate(dat.getDate());
       dat.setMinutes(dat.getMinutes() - 5);
 
       datNow = new Date(Date.now());
