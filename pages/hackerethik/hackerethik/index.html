@@ -1,0 +1,94 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <style>
+  body{
+    background-color: black;
+    color: #e0e0e0;
+    overflow: hidden;
+  }
+
+  #container {
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    margin-top: 10%;
+  }
+
+  #txt{
+    font-size: 4em;
+  }
+  </style>
+
+
+</head>
+
+<body>
+  <div id="container">
+    <span id="txt"></span>
+  </div>
+
+  <script>
+
+  var ethic = [
+    "Der Zugang zu Computern und allem, was einem zeigen kann, wie diese Welt funktioniert, sollte unbegrenzt und vollständig sein.",
+    "Alle Informationen müssen frei sein.",
+    "Mißtraue Autoritäten – fördere Dezentralisierung",
+    "Beurteile einen Hacker nach dem, was er tut, und nicht nach üblichen Kriterien wie Aussehen, Alter, Rasse, Geschlecht oder gesellschaftlicher Stellung.",
+    "Man kann mit einem Computer Kunst und Schönheit schaffen.",
+    "Computer können dein Leben zum Besseren verändern.",
+    "Mülle nicht in den Daten anderer Leute.",
+    "Öffentliche Daten nützen, private Daten schützen."
+  ]
+  var bgcolors = [
+    "#b31e1e",
+    "white",
+    "#1e3ab3",
+    "#299394",
+    "#ffe63b",
+    "#2a790f",
+    "#db4a17",
+    "#5f5f5f",
+    "#db4a17",
+  ]
+
+  var fgcolors = [
+    "white",
+    "black",
+    "white",
+    "white",
+    "black",
+    "white",
+    "white",
+    "white",
+    "white",
+  ]
+
+  i = 0;
+
+  function update(){
+    $("#txt").hide();
+    $("#txt").fadeIn(200).html("Hackerethik #"+(i+1) + ": <br>" +ethic[i]);
+    $("body").css("color", fgcolors[i]);
+    $("body").css("background-color", bgcolors[i]);
+
+    i++;
+    i = i % 8;
+  }
+  setInterval(update,6000);
+  update();
+
+</script>
+
+</body>
+
+</html>
