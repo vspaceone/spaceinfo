@@ -120,7 +120,7 @@ def generateDirectory(slideshow):
 					except KeyError:
 						pass
 					try:
-						timeout = config["Page-Settings"]["timeout"]
+						timeout = int(config["Page-Settings"]["timeout"])
 					except KeyError:
 						pass
 					try:
