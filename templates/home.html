@@ -63,11 +63,38 @@
 
 # In which slideshow should this page be? You could specify multiple.
 slideshows = internal
+
+# Date in ISO standard
+startdate = "2015-03-25"
+enddate = "2015-03-28"
 		</pre>
 		Put a <i>config.ini</i> file in any subfolder of <i>pages</i>.
 
 		<h2>API</h2>
-		<p>Request <pre>/shows/internal.json</pre> to geht the show internal setting.</p>
+		<p>Request <pre>/shows/internal.json</pre> to get the show internal setting. Response looks like
+
+		<pre>
+			[
+			  {
+			    "link": "pages/hackerdoge/index.html",
+			    "timeout": 30
+			  },
+			  {
+			    "link": "pages/netzpolitik.org/index.html",
+			    "timeout": "42"
+			  },
+			  {
+			    "link": "pages/35c3_fahrplan/index.html",
+			    "timeout": 30
+			  },
+			  {
+			    "link": "pages/20190602_GPN19/index.html",
+			    "timeout": 30
+			  },
+				....
+			]
+		</pre>
+	</p>
 
 		<h2>Questions</h2>
 		<p>For questions ask max</p>
