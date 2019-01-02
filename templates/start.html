@@ -15,6 +15,20 @@
 			margin: 0;
 			padding: 0;
 		}
+
+		#msg {
+			position: absolute;
+
+			margin: 0;
+			padding: 0;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			font-size: 4em;
+			z-index: 100;
+			font-family: monospace;
+			color: red;
+		}
 	</style>
 	<script>
 		$(document).ready(function () {
@@ -22,6 +36,7 @@
 		})
 
 		var nextPage = function() {
+			try{
 			$.getJSON("{{ showname }}.json", function (data) {
 				try{
 					var d;
@@ -31,14 +46,22 @@
 					console.log("Loading",data[d].link);
 					var URL = data[d].link;
 					$('#frame').attr('src', URL);
+					$("#msg").html("");
 					console.log("Waiting for",data[d].timeout,"Secs")
+					window.setTimeout(nextPage, data[d].timeout * 1000);
 				}catch(err){
-
-
+					$("#msg").html("ERR: Loading a page!: " + err.message);
+					window.setTimeout(nextPage, 1000);
 				}finally{
-					window.setTimeout(nextPage, data[d].timeout*1000);
+
 				}
 			});
+		}catch(err){
+			$("#msg").html("ERR: could not load json {{showname}}.json!: " + err.message);
+			window.setTimeout(nextPage, 1000);
+		}finally{
+
+		}
 		}
 
 		var URL = "";
@@ -48,7 +71,7 @@
 </head>
 
 <body>
-
+	<span id="msg">Hallo Welt!</span>
 	<iframe id="frame" src="http://vspace.one" width="100%" height="100%" style="position: absolute; top: 0; left: 0;"></iframe>
 </body>
 
