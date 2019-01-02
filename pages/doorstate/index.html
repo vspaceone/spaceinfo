@@ -45,7 +45,7 @@
 
   function update() {
     $.getJSON("https://vspace.one/spaceapi.json", function(d){
-      if(d.state.open == false){
+      if(d.state.open == true){
         $("#state").text("open");
         $("body").css("background-color","#18bc0b").css("color","#218c00");
       }else{
