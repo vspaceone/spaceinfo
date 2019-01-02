@@ -13,7 +13,7 @@ app = flask.Flask(__name__)
 
 # Constants
 VERSION_MAJOR = 0
-VERSION_MINOR = 1
+VERSION_MINOR = 2
 VERSION_PATCH = 0
 VERSION = "v"+str(VERSION_MAJOR)+"."+str(VERSION_MINOR)+"."+str(VERSION_PATCH)
 
@@ -80,7 +80,6 @@ def sendStatic(path):
 
 
 def getShows():
-
 	p = os.path.relpath("pages")
 	slideshows = []
 
@@ -109,6 +108,8 @@ def generateDirectory(slideshow):
 		if not os.path.isfile(os.path.join("pages",d)):
 			link = ""
 			timeout = DEFAULT_TIMEOUT
+			startdate = ""
+			enddate = ""
 			slideshows = []
 			for f in os.listdir(os.path.join("pages",d)):
 				if f == "config.ini":
@@ -126,6 +127,15 @@ def generateDirectory(slideshow):
 						slideshows =  config["Page-Settings"]["slideshows"].split(" ")
 					except KeyError:
 						pass
+					try:
+						startdate = config["Page-Settings"]["startdate"]
+					except KeyError:
+						pass
+					try:
+						enddate = config["Page-Settings"]["enddate"]
+						if
+					except KeyError:
+						pass
 				if f == "index.html":
 					link = os.path.join(servername,"pages",d,f)
 				else:
@@ -137,7 +147,7 @@ def generateDirectory(slideshow):
 				continue
 			if slideshow not in slideshows:
 				continue
-			directory.append({ "link": link, "timeout": timeout })
+			directory.append({ "link": link, "timeout": timeout, "startdate": startdate, "enddate": enddate})
 
 	ret = (json.dumps(directory, indent=2, sort_keys=True))
 	return ret
