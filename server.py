@@ -133,7 +133,6 @@ def generateDirectory(slideshow):
 						pass
 					try:
 						enddate = config["Page-Settings"]["enddate"]
-						if
 					except KeyError:
 						pass
 				if f == "index.html":
