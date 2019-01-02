@@ -11,10 +11,9 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-  <script src="sugar2.0.4.js"></script>
   <style>
   body{
-    background-image: url(bg.jpg);
+    background-color: black;
     background-repeat: no-repeat;
     background-size: cover;
     color: #e0e0e0;
@@ -43,6 +42,11 @@
     position: absolute;
   }
 
+  #attribution {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+  }
   </style>
 
 </head>
@@ -52,6 +56,8 @@
   <div class="container">
     <div id="clock"></div>
     <div id="date"></div>
+  </div>
+  <div id="attribution"></a>
   </div>
   <script>
   Number.prototype.pad = function(size) {
@@ -73,7 +79,19 @@
     "Oktober",
     "November",
     "Dezember"
+  ];
+
+  var attribution = [
+    "Equinox 2018, S. Hu",
+    "Equinox 2018, S. Hu",
+    "CC0 xusenru"
   ]
+
+  function updateBG(){
+    var r = Math.floor((Math.random() * attribution.length));
+    $("body").css("background-image", "url(bg"+r+".jpg)");
+        $("#attribution").html(attribution[r]);
+  }
 
   function update() {
     var d = new Date(Date.now());
@@ -82,9 +100,12 @@
 
     $("#clock").text(clock);
     $("#date").text(day);
+
   }
-  setTimeout(update,1000);
+  setInterval(update,1000);
+  setInterval(updateBG,10000);
   update();
+  updateBG();
 
 </script>
 
