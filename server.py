@@ -10,6 +10,7 @@ import signal
 
 import flask
 app = flask.Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 
 # Constants
 VERSION_MAJOR = 0
@@ -32,6 +33,11 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 ch.setFormatter(formatter)
 
 logger.addHandler(ch)
+
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'must-validate'
+    return response
 
 def sigterm_handler(_signo,_stack_frame):
 	logger.info("SIGTERM received. Cleaning up...")
