@@ -50,18 +50,42 @@
 <body>
 
   <div class="container">
-    <div id="clock">12:00</div>
-    <div id="date">12.Dezember 2019</div>
+    <div id="clock"></div>
+    <div id="date"></div>
   </div>
   <script>
-  /*
-  speed = 30
-  function pageScroll() {
-  window.scrollBy(0,1);
-  scrolldelay = setTimeout(pageScroll,speed);
-}
-setTimeout(pageScroll,4000);
-*/
+  Number.prototype.pad = function(size) {
+    var s = String(this);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
+  }
+
+  var month = [
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"
+  ]
+
+  function update() {
+    var d = new Date(Date.now());
+    var clock = d.getHours().pad(2) + ":" + d.getMinutes().pad(2);
+    var day = d.getDate() + ". " + month[(d.getMonth())] + " " + d.getFullYear();
+
+    $("#clock").text(clock);
+    $("#date").text(day);
+  }
+  setTimeout(update,1000);
+  update();
+
 </script>
 
 </body>
