@@ -146,7 +146,7 @@ def generateDirectory(slideshow):
 				continue
 			if slideshow not in slideshows:
 				continue
-			directory.append({ "link": link, "timeout": timeout, "startdate": startdate, "enddate": enddate})
+			directory.append({ "title": d, "link": link, "timeout": timeout, "startdate": startdate, "enddate": enddate})
 
 	ret = (json.dumps(directory, indent=2, sort_keys=True))
 	return ret
