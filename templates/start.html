@@ -35,6 +35,10 @@
 
 		})
 
+		var win0;
+		var win1;
+		var activeWin = 0
+
 		var nextPage = function() {
 			try{
 			$.getJSON("{{ showname }}.json", function (data) {
@@ -45,18 +49,47 @@
 					} while( URL == data[d].link);
 					console.log("Loading",data[d].link);
 					var URL = data[d].link;
-					$('#frame').attr('src', URL);
+					//$('#frame').attr('src', URL);
+
+					if(activeWin == 0){
+						win1 = window.open(URL);
+
+					}else{
+						win0 = window.open(URL);
+					}
+
+					try {
+						if(activeWin == 0){
+							win0.close();
+
+						}else{
+							win1.close();
+						}
+					}catch(err){
+
+					}
+
+					activeWin = (activeWin + 1) % 2
+
+
 					$("#msg").html("");
 					console.log("Waiting for",data[d].timeout,"Secs")
 					window.setTimeout(nextPage, data[d].timeout * 1000);
 				}catch(err){
+					console.log("ERR: Loading a page!: " + err.message);
 					$("#msg").html("ERR: Loading a page!: " + err.message);
 					window.setTimeout(nextPage, 1000);
 				}finally{
 
 				}
+			},function(err){
+				console.log("ERR: loading json!:");
+				$("#msg").html("ERR: could not load json {{showname}}.json!: " + err.message);
+				window.setTimeout(nextPage, 1000);
 			});
+
 		}catch(err){
+			console.log("ERR: could not load json {{showname}}.json!: " + err.message);
 			$("#msg").html("ERR: could not load json {{showname}}.json!: " + err.message);
 			window.setTimeout(nextPage, 1000);
 		}finally{
