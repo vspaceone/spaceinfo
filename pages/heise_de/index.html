@@ -54,13 +54,17 @@
 
 <body>
   <div id="container">
-    <h1 style="top: 1em; left: 1em; position:absolute">Netzpolitik.org Feed</h2>
+    <h1 style="top: 1em; left: 1em; position:absolute">Heise.de Feed</h2>
     <div id="label-txtblock">
     <span id="label-txt"><b class="label-txtb"></b>loading...</span>
   </div>
   </div>
 
   <script>
+
+  var i = 0;
+  var items = [];
+
   var month = [
     "Jan", "Feb", "Mrz", "Apr", "Mai", "Jun", "Jul", "Aug", "Sept", "Okt", "Nov", "Dez"
   ]
@@ -71,10 +75,7 @@
     return s;
   }
 
-  var i = 0;
-  var items = [];
-
-  $.get("https://feeds.noppelmax.online/netzpolitik.xml", function (data) {
+  $.get("https://feeds.noppelmax.online/heise.xml", function (data) {
 
     dat = $(data);
     dat.find("item").each(function () {
@@ -87,7 +88,6 @@
                 author: $this.find("author").text()
             };
             items.push(item);
-
         });
         update();
     });
