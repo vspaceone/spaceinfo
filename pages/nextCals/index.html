@@ -35,15 +35,11 @@
   }
 
   .card-title {
-    font-size: 3em;
+    font-size: 2.5em;
   }
 
   .card-subtitle {
     font-size: 2em;
-  }
-
-  .remainingtime {
-    font-size: 3em;
   }
 
   .warning-true {
@@ -55,19 +51,13 @@
   </style>
 
   <script  id="template" type="x-tmpl-mustache">
-
-  <div class="card text-center">
-  <div class="card-body">
-  <h2 class="card-title">Termine</h2>
-  </div>
-  </div>
   {{#items}}
   <div class="card card-itm warning-{{warning}}" id="id{{id}}">
   <div class="card-body">
-    <h5 class="card-title">{{title}}</h5>
+    <h5 class="card-title"  style="margin-right: 180px;">{{title}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{datestr}}</h6>
-    <p class="card-text"></p>
-    <p class="card-text remainingtime">in <b>{{days}}</b> Days</p>
+    <p style="top: -10px; right: 10px; position: absolute; font-size: 7em;">{{days}}</p>
+
   </div>
   </div>
   {{/items}}
@@ -77,7 +67,17 @@
 <body>
 
   <div class="card-group">
-    <div class="card-column" style="width: 100%;" id="cards">
+    <div class="card-column" style="width: 50%;" id="cards"></div>
+
+    <div class="card-column" style="width: 50%;" id="cards">
+      <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title" id="clock" style="font-size: 6em;"></h5>
+        <h6 class="card-subtitle mb-2 text-muted" id="date"></h6>
+        <p class="card-text"></p>
+        <p class="card-text"></p>
+      </div>
+      </div>
 
     </div>
   </div>
@@ -89,7 +89,7 @@
 
 
 
-  var day = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+  var days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
   var month = [
     "Januar",
     "Februar",
@@ -105,6 +105,8 @@
     "Dezember"
   ];
 
+
+
   function DateDiffinDays(d1, d2) {
         var t2 = d2.getTime();
         var t1 = d1.getTime();
@@ -112,7 +114,7 @@
         return parseInt(((t2-t1)+24*3600*1000)/(24*3600*1000));
   };
 
-  function update(){
+  function updateTermine(){
     $.getJSON("https://feeds.noppelmax.online/cal.json", function (data) {
       var items = [];
       datNow = new Date(Date.now());
@@ -127,7 +129,7 @@
           title: itm.title,
           subtitle: "jkl",
           date: d,
-          datestr: day[d.getDay()] + ", " + d.getDate() + "." + month[d.getMonth()] + " " + d.getFullYear(),
+          datestr: days[d.getDay()] + ", " + d.getDate() + "." + month[d.getMonth()] + " " + d.getFullYear(),
           days: DateDiffinDays(datNow, d),
           warning: DateDiffinDays(datNow, d) < 3,
         };
@@ -156,17 +158,37 @@
 
 
   $( document ).ready(function() {
-    update();
+    updateTermine();
   });
 
 
   window.setInterval(function(){
     console.log("Updating..");
-    update();
+    updateTermine();
   },1000);
+</script>
 
+<script>
+  var days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+  Number.prototype.pad = function(size) {
+    var s = String(this);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
+  }
 
+  function updateTime() {
+    var d = new Date(Date.now());
+    var clock = d.getHours().pad(2) + ":" + d.getMinutes().pad(2);
+    var day = days[d.getDay()] + ", " + d.getDate() + ". " + month[(d.getMonth())] + " " + d.getFullYear();
 
+    $("#clock").text(clock);
+    $("#date").text(day);
+
+  }
+
+  $( document ).ready(function() {
+    updateTime();
+  });
 
 </script>
 
