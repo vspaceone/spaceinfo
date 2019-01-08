@@ -1,0 +1,176 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+  <script src="sugar2.0.4.js"></script>
+  <style>
+  body{
+    background-color: #1d1f21;
+    color: #e0e0e0;
+  }
+  .card {
+    background-color: #1d1f21;
+    color: #e0e0e0;
+  }
+
+  .card-itm{
+    margin: 5px;
+    border-color: #00be00;
+    color: #00be00;
+  }
+
+  .timeto {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+  }
+
+  .card-title {
+    font-size: 3em;
+  }
+
+  .card-subtitle {
+    font-size: 2em;
+  }
+  .card-text {
+    font-size: 1.6em;
+  }
+
+
+  </style>
+
+  <script  id="template" type="x-tmpl-mustache">
+
+  <div class="card text-center">
+  <div class="card-body">
+  <h2 class="card-title"><img src="logo.png"></img></h2>
+  </div>
+  </div>
+  {{#items}}
+  <div class="card card-itm" id="id{{id}}">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{datestr}} {{timestr}}</h6>
+    <p class="card-text"></p>
+  </div>
+  </div>
+  {{/items}}
+  </script>
+</head>
+
+<body>
+
+  <div class="card-group">
+    <div class="card-column" style="width: 100%;" id="cards">
+
+    </div>
+  </div>
+  <div>
+    <p class="text-center">cal_v1.1, MIT Licence Maximilian Noppel 2019</p>
+  </div>
+
+  <script>
+
+
+
+  var day = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+  var month = [
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"
+  ];
+
+  Number.prototype.pad = function(size) {
+    var s = String(this);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
+  }
+
+  function update(){
+    $.getJSON("https://events-api.shackspace.de/events/", function (data) {
+      var items = [];
+      datNow = new Date(Date.now());
+
+      $.each(data, function(i){
+
+        itm = data[i];
+
+        d = new Date(itm.start);
+        dend = new Date(itm.end);
+
+        item = {
+          title: itm.name,
+          subtitle: "jkl",
+          date: d,
+          datestr: day[d.getDay()] + ", " + d.getDate() + "." + month[d.getMonth()] + " " + d.getFullYear(),
+          timestr: d.getHours().pad(2) + ":" + d.getMinutes().pad(2) + " bis " + dend.getHours().pad(2) + ":" + dend.getMinutes().pad(2) ,
+          description: itm.description
+        };
+
+        items.push(item);
+      });
+
+      console.log("filtering...",items);
+      items = items.filter(function(el) { return el.date >= datNow; });
+
+      console.log("Sorting...",items);
+      items.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+      });
+
+      console.log("rendering...",items);
+      var template = $('#template').html();
+      Mustache.parse(template);   // optional, speeds up future uses
+
+
+      var rendered = Mustache.render(template, {"items": items});
+      $("#cards").html(rendered);
+
+    });
+  }
+
+
+  $( document ).ready(function() {
+    update();
+  });
+
+
+  window.setInterval(function(){
+    console.log("Updating..");
+    update();
+  }, 600 * 1000);
+
+
+
+
+</script>
+<script>
+  speed = 30
+  function pageScroll() {
+    window.scrollBy(0,1);
+    scrolldelay = setTimeout(pageScroll,speed);
+  }
+  setTimeout(pageScroll,4000);
+</script>
+
+</body>
+
+</html>
