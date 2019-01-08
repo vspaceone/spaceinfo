@@ -141,7 +141,7 @@
       });
 
       console.log("filtering...",items);
-      items = items.filter(function(el) { return DateDiffinDays(datNow, d)>=0; });
+      items = items.filter(function(el) { return el.date >= datNow; });
 
       console.log("rendering...",items);
       var template = $('#template').html();
