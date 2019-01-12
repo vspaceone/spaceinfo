@@ -55,7 +55,7 @@
   <div class="card card-itm warning-{{warning}}" id="id{{id}}">
   <div class="card-body">
     <h5 class="card-title"  style="margin-right: 180px;">{{title}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{datestr}}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">{{datestr}} {{timestr}}</h6>
     <p style="top: -10px; right: 10px; position: absolute; font-size: 7em;">{{days}}</p>
 
   </div>
@@ -111,7 +111,7 @@
         var t2 = d2.getTime();
         var t1 = d1.getTime();
 
-        return parseInt(((t2-t1)+24*3600*1000)/(24*3600*1000));
+        return parseInt(((t2-t1)+23*3600*1000)/(24*3600*1000));
   };
 
   function updateTermine(){
@@ -123,13 +123,21 @@
 
         itm = data[i];
 
-        d = new Date(itm.date);
+        d = new Date(itm.start);
+        if(itm.end){
+          dend = new Date(itm.end);
+          tstr = d.getHours().pad(2) + ":" + d.getMinutes().pad(2) + " bis " + dend.getHours().pad(2) + ":" + dend.getMinutes().pad(2);
+        }else{
+          tstr = d.getHours().pad(2) + ":" + d.getMinutes().pad(2);
+        }
+
 
         item = {
           title: itm.title,
           subtitle: "jkl",
           date: d,
           datestr: days[d.getDay()] + ", " + d.getDate() + "." + month[d.getMonth()] + " " + d.getFullYear(),
+          timestr: tstr,
           days: DateDiffinDays(datNow, d),
           warning: DateDiffinDays(datNow, d) < 3,
         };
