@@ -55,12 +55,32 @@
   <div class="card card-itm warning-{{warning}}" id="id{{id}}">
   <div class="card-body">
     <h5 class="card-title"  style="margin-right: 180px;">{{title}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{datestr}} {{timestr}}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">{{datestr}}, {{timestr}}</h6>
     <p style="top: -10px; right: 10px; position: absolute; font-size: 7em;">{{days}}</p>
 
   </div>
   </div>
   {{/items}}
+  </script>
+
+  <script  id="templateWeekly" type="x-tmpl-mustache">
+  {{#items}}
+  <div class="card card-itm text-center" style="border: 0px;" id="id{{id}}">
+  <div class="card-body">
+    <h5 class="card-title" style="">{{title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{timestr}}</h6>
+
+  </div>
+  </div>
+  {{/items}}
+  </script>
+
+  <script  id="templateWeeklyEmpty" type="x-tmpl-mustache">
+  <div class="card card-itm text-center" style="border: 0px;">
+  <div class="card-body">
+    <h5 class="card-title mb-2 text-muted" style="">Heute keine regelmäßigen Termine</h5>
+  </div>
+  </div>
   </script>
 </head>
 
@@ -69,8 +89,8 @@
   <div class="card-group">
     <div class="card-column" style="width: 50%;" id="cards"></div>
 
-    <div class="card-column" style="width: 50%;" id="cards">
-      <div class="card text-center">
+    <div class="card-column" style="width: 50%;">
+      <div class="card text-center" style="border: 0px;">
       <div class="card-body">
         <h5 class="card-title" id="clock" style="font-size: 6em;"></h5>
         <h6 class="card-subtitle mb-2 text-muted" id="date"></h6>
@@ -78,6 +98,9 @@
         <p class="card-text"></p>
       </div>
       </div>
+
+      <span id="cardsWeekly">
+      </span>
 
     </div>
   </div>
@@ -136,7 +159,7 @@
           title: itm.title,
           subtitle: "jkl",
           date: d,
-          datestr: days[d.getDay()] + ", " + d.getDate() + "." + month[d.getMonth()] + " " + d.getFullYear(),
+          datestr: days[d.getDay()] + ", " + d.getDate() + "." + month[d.getMonth()],
           timestr: tstr,
           days: DateDiffinDays(datNow, d),
           warning: DateDiffinDays(datNow, d) < 3,
@@ -165,8 +188,77 @@
   }
 
 
+  function updateRepeatedTermine(){
+
+    $.getJSON("https://feeds.noppelmax.online/calWeekly.json", function (data) {
+      var items = [];
+      console.log("updateRepeatedTermine");
+      datNow = new Date(Date.now());
+      console.log("updateRepeatedTermine");
+      data = data[days[datNow.getDay()]];
+      console.log("updateRepeatedTermine");
+
+      if(data.length == 0){
+        console.log("rendering empty list...");
+        var template = $('#templateWeeklyEmpty').html();
+        Mustache.parse(template);   // optional, speeds up future uses
+
+
+        var rendered = Mustache.render(template, {});
+        $("#cardsWeekly").html(rendered);
+        return;
+      }
+
+      $.each(data, function(i){
+
+        itm = data[i];
+        console.log(data[i]);
+
+        d = new Date(itm.start);
+        if(itm.end){
+          dend = new Date(itm.end);
+          tstr = d.getHours().pad(2) + ":" + d.getMinutes().pad(2) + " bis " + dend.getHours().pad(2) + ":" + dend.getMinutes().pad(2);
+        }else{
+          tstr = d.getHours().pad(2) + ":" + d.getMinutes().pad(2);
+        }
+        dayStr = days[datNow.getDay()];
+
+        item = {
+          title: itm.title,
+          subtitle: "jkl",
+          date: d,
+          datestr: days[d.getDay()] + ", " + d.getDate() + "." + month[d.getMonth()] + " " + d.getFullYear(),
+          timestr: tstr,
+          days: DateDiffinDays(datNow, d),
+          warning: DateDiffinDays(datNow, d) < 3,
+        };
+
+        items.push(item);
+      });
+
+      console.log("Sorting...",items);
+      items.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+      });
+
+      //console.log("filtering...",items);
+      //items = items.filter(function(el) { return el.date >= datNow; });
+
+
+      console.log("rendering weekly...",items);
+      var template = $('#templateWeekly').html();
+      Mustache.parse(template);   // optional, speeds up future uses
+
+      var rendered = Mustache.render(template, {"items": items, "day": dayStr});
+      $("#cardsWeekly").html(rendered);
+
+    });
+  }
+
+
   $( document ).ready(function() {
     updateTermine();
+    updateRepeatedTermine();
   });
 
 
