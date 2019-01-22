@@ -98,8 +98,26 @@
         <p class="card-text"></p>
       </div>
       </div>
+      <div class="card text-center">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2" style="font-size: 3em;">Heute</h6>
+        <p class="card-text"></p>
+        <p class="card-text"></p>
+      </div>
+      </div>
 
       <span id="cardsWeekly">
+      </span>
+
+      <div class="card text-center">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2" style="font-size: 3em;">Morgen</h6>
+        <p class="card-text"></p>
+        <p class="card-text"></p>
+      </div>
+      </div>
+
+      <span id="cardsWeeklyTomorrow">
       </span>
 
     </div>
@@ -188,14 +206,14 @@
   }
 
 
-  function updateRepeatedTermine(){
+  function updateRepeatedTermine(off,divname){
 
     $.getJSON("https://feeds.noppelmax.online/calWeekly.json", function (data) {
       var items = [];
       console.log("updateRepeatedTermine");
       datNow = new Date(Date.now());
       console.log("updateRepeatedTermine");
-      data = data[days[datNow.getDay()]];
+      data = data[days[(datNow.getDay()+off)%7]];
       console.log("updateRepeatedTermine");
 
       if(data.length == 0){
@@ -250,7 +268,7 @@
       Mustache.parse(template);   // optional, speeds up future uses
 
       var rendered = Mustache.render(template, {"items": items, "day": dayStr});
-      $("#cardsWeekly").html(rendered);
+      $(divname).html(rendered);
 
     });
   }
@@ -258,14 +276,16 @@
 
   $( document ).ready(function() {
     updateTermine();
-    updateRepeatedTermine();
+    updateRepeatedTermine(0,"#cardsWeekly");
+    updateRepeatedTermine(1,"#cardsWeeklyTomorrow");
   });
 
 
   window.setInterval(function(){
     console.log("Updating..");
     updateTermine();
-    updateRepeatedTermine();
+    updateRepeatedTermine(0,"#cardsWeekly");
+    updateRepeatedTermine(1,"#cardsWeeklyTomorrow");
   },60000);
 </script>
 
