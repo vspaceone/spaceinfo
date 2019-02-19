@@ -73,25 +73,20 @@
 
 
 					$("#msg").html("");
-					console.log("Waiting for",data[d].timeout,"Secs")
-					window.setTimeout(nextPage, data[d].timeout * 1000);
 				}catch(err){
 					console.log("ERR: Loading a page!: " + err.message);
 					$("#msg").html("ERR: Loading a page!: " + err.message);
-					window.setTimeout(nextPage, 1000);
 				}finally{
 
 				}
 			},function(err){
 				console.log("ERR: loading json!:");
 				$("#msg").html("ERR: could not load json {{showname}}.json!: " + err.message);
-				window.setTimeout(nextPage, 1000);
 			});
 
 		}catch(err){
 			console.log("ERR: could not load json {{showname}}.json!: " + err.message);
 			$("#msg").html("ERR: could not load json {{showname}}.json!: " + err.message);
-			window.setTimeout(nextPage, 1000);
 		}finally{
 
 		}
@@ -99,6 +94,7 @@
 
 		var URL = "";
 		nextPage();
+		window.setInterval(nextPage, 40000);
 	</script>
 
 </head>
