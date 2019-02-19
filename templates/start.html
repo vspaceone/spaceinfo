@@ -94,8 +94,8 @@
 
 		var lastSlideTime = System.currentTimeMillis()
 
-		var checkTime = function(){
-			if System.currentTimeMillis() - lastSlideTime >= (30 * 1000){
+		var checkTime = function() {
+			if ((System.currentTimeMillis()) - lastSlideTime >= (30 * 1000)){
 				nextPage()
 				lastSlideTime = System.currentTimeMillis()
 			}
@@ -103,7 +103,7 @@
 
 		var URL = "";
 		nextPage();
-		window.setInterval(nextPage, 1000);
+		window.setInterval(checkTime, 1000);
 	</script>
 
 </head>
