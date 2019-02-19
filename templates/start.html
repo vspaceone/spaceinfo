@@ -92,12 +92,12 @@
 		}
 		}
 
-		var lastSlideTime = System.currentTimeMillis()
+		var lastSlideTime = new Date().getTime();
 
 		var checkTime = function() {
-			if ((System.currentTimeMillis()) - lastSlideTime >= (30 * 1000)){
+			if ((new Date().getTime()) - lastSlideTime >= (30 * 1000)){
 				nextPage()
-				lastSlideTime = System.currentTimeMillis()
+				lastSlideTime = new Date().getTime();
 			}
 		}
 
