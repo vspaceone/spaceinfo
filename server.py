@@ -80,6 +80,12 @@ def displayShow(showname):
 	resp.headers["Content-type"] = "text/html; charset=utf-8"
 	return resp
 
+@app.route("/shows/overviews/<showname>.html")
+def displayShowOverview(showname):
+	resp = flask.make_response(flask.render_template('overview.html', showname=showname), 200)
+	resp.headers["Content-type"] = "text/html; charset=utf-8"
+	return resp
+
 @app.route('/shows/pages/<path:path>')
 def sendStatic(path):
     return flask.send_from_directory('pages', path)

@@ -1,0 +1,83 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		iframe {
+			border: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		#msg {
+			position: absolute;
+
+			margin: 0;
+			padding: 0;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			font-size: 4em;
+			z-index: 100;
+			font-family: monospace;
+			color: red;
+		}
+	</style>
+	<script>
+	var load = function() {
+		try{
+		$.getJSON("../{{ showname }}.json", function (data) {
+			try{
+				var index, len;
+				for (index = 0, len = data.length; index < len; ++index) {
+					console.log("add" + data[index].link);
+					url = data[index].link;
+					if( url.slice(0,4) == "page"){
+						url = "../" + url;
+					}
+					$('<iframe src="' + url + '"frameborder="0" scrolling="no" width="1024px" height="768px" style="padding: 2px;"></iframe><br>').appendTo('#slides');
+				}
+
+			}catch(err){
+				console.log("ERR: Loading a page!: " + err.message);
+				$("#msg").html("ERR: Loading a page!: " + err.message);
+			}finally{
+
+			}
+		},function(err){
+			console.log("ERR: loading json!:");
+			$("#msg").html("ERR: could not load json {{showname}}.json!: " + err.message);
+		});
+
+	}catch(err){
+		console.log("ERR: could not load json {{showname}}.json!: " + err.message);
+		$("#msg").html("ERR: could not load json {{showname}}.json!: " + err.message);
+	}finally{
+		lastSlideTime = new Date().getTime();
+	}
+	}
+
+		$(document).ready(function () {
+			load();
+		});
+
+	</script>
+
+</head>
+
+<body style="margin: auto 0; text-align: center;">
+	<span id="msg"></span>
+	<h1>Spaceinfo v1</h1>
+	<p>current show: {{ showname }}</p>
+	<div id="slides"></div>
+
+</body>
+
+</html>
