@@ -88,8 +88,10 @@
 			console.log("ERR: could not load json {{showname}}.json!: " + err.message);
 			$("#msg").html("ERR: could not load json {{showname}}.json!: " + err.message);
 		}finally{
-
+			lastSlideTime = new Date().getTime();
 		}
+
+
 		}
 
 		var lastSlideTime = new Date().getTime();
@@ -112,6 +114,7 @@
 	<span id="msg"></span>
 	<h1>Spaceinfo v1</h1>
 	<p>current show: {{ showname }}</p>
+	<button onClick="nextPage()">next</button>
 </body>
 
 </html>
