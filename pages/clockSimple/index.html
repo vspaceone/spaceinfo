@@ -87,12 +87,12 @@
     if (Math.random() > 0.9) {
       var x = parseInt(Math.random() * 11)
       var y = parseInt(Math.random() * 11)
+      $(".container").css("margin-left",x+"00px");
+      $(".container").css("margin-top",y+"00px");
+
     }
     $("#clock").text(clock);
     $("#date").text(day);
-    $(".container").css("margin-left",x+"00px");
-    $(".container").css("margin-top",y+"00px");
-
   }
   setInterval(update,1000);
   update();
