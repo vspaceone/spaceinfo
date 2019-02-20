@@ -40,13 +40,13 @@
 	<h2>Available Slideshows<h2>
 		<ul>
 			{% for show in shows %}
-			<li><a href="/shows/{{ show }}.html">{{ show }}</a></li>
+			<li><a href="/shows/{{ show }}.html">{{ show }}</a> | Slide-Overview: <a href="/shows/overviews/{{ show }}.html">{{ show }}</a></li>
 			{% endfor %}
 		</ul>
 
 		<h2>New Page</h2>
 		<p>Add a new page by clicking <a href="?action=newpage">here (not implemented)</a></p>
-		<p>For the moment you could add pages by making a git commit to <a href="https://github.com/vspaceone/spaceinfo">github spaceinfo Branch: firefoxPages</a>.</p>
+		<p>For the moment you could add pages by making a git commit to <a href="https://github.com/vspaceone/spaceinfo">github spaceinfo Branch: master</a>.</p>
 
 		<h2>New slideshow</h2>
 		<p>Add a new slideshow by clicking <a href="?action=slideshow">here (not implemented)</a></p>

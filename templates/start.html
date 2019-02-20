@@ -38,6 +38,8 @@
 		var win0;
 		var win1;
 		var activeWin = 0
+		var timeout = 0
+		var DEFAULT_TIMEOUT = 30
 
 		var nextPage = function() {
 			try{
@@ -49,7 +51,13 @@
 					} while( URL == data[d].link);
 					console.log("Loading",data[d].link);
 					var URL = data[d].link;
-					//$('#frame').attr('src', URL);
+					if(data[d].timeout){
+						console.log("Load timeout from json" + data[d].timeout);
+						timeout = data[d].timeout;
+					}else{
+						console.log("Load defaul timeout");
+						timeout = DEFAULT_TIMEOUT
+					}
 
 					if(activeWin == 0){
 						win1 = window.open(URL);
@@ -97,7 +105,7 @@
 		var lastSlideTime = new Date().getTime();
 
 		var checkTime = function() {
-			if ((new Date().getTime()) - lastSlideTime >= (30 * 1000)){
+			if ((new Date().getTime()) - lastSlideTime >= (timeout * 1000)){
 				nextPage()
 				lastSlideTime = new Date().getTime();
 			}

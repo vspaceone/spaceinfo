@@ -103,7 +103,8 @@ def getShows():
 					config.read(os.path.join("pages",d,f))
 					try:
 						for s in config["Page-Settings"]["slideshows"].split(" "):
-							slideshows.append(s)
+							if s.strip() != "":
+								slideshows.append(s)
 					except KeyError:
 						pass
 	return list(set(slideshows))
