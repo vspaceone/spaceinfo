@@ -23,6 +23,7 @@
     margin: 0;
     padding: 0;
     font-family: font;
+    overflow: hidden;
   }
 
   .container {
@@ -85,8 +86,8 @@
     var x = 0;
     var y = 0;
     if (Math.random() > 0.9) {
-      var x = parseInt(Math.random() * 11)
-      var y = parseInt(Math.random() * 11)
+      var x = parseInt(Math.random() * 10)
+      var y = parseInt(Math.random() * 10)
       $(".container").css("margin-left",x+"00px");
       $(".container").css("margin-top",y+"00px");
 
