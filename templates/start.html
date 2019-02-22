@@ -32,7 +32,7 @@
 	</style>
 	<script>
 		$(document).ready(function () {
-			$("#msg").html($("#msg").html()+"<br>JS is running :)<br>");
+			$("#msg").append("<br>JS is running :)");
 		})
 
 		var win0;
@@ -80,21 +80,20 @@
 					activeWin = (activeWin + 1) % 2
 
 
-					$("#msg").html("");
 				}catch(err){
 					console.log("ERR: Loading a page!: " + err.message);
-					$("#msg").html($("#msg").html()+"<br>ERR: Loading a page!: " + err.message);
+					$("#msg").append("<br>ERR: Loading a page!: " + err.message);
 				}finally{
 
 				}
 			},function(err){
 				console.log("ERR: loading json!:");
-				$("#msg").html($("#msg").html()+"<br>ERR: could not load json {{showname}}.json!: " + err.message);
+				$("#msg").append("<br>ERR: could not load json {{showname}}.json!: " + err.message);
 			});
 
 		}catch(err){
 			console.log("ERR: could not load json {{showname}}.json!: " + err.message);
-			$("#msg").html($("#msg").html()+"<br>ERR: could not load json {{showname}}.json!: " + err.message);
+			$("#msg").append("<br>ERR: could not load json {{showname}}.json!: " + err.message);
 		}finally{
 			lastSlideTime = new Date().getTime();
 		}
