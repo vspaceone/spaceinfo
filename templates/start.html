@@ -25,7 +25,7 @@
 	</style>
 	<script>
 		$(document).ready(function () {
-			$("#msg").append("<br>JS is running :)");
+			$("#msg").append("<br>Document ready! :)");
 		})
 
 		var win0;
@@ -37,6 +37,7 @@
 		var nextPage = function() {
 			try{
 			$.getJSON("{{ showname }}.json", function (data) {
+				$("#msg").append("<br>JSON loaded");
 				try{
 					var d;
 					do {
@@ -53,10 +54,12 @@
 					}
 
 					if(activeWin == 0){
-						win1 = window.open(URL, "", "location=no");
+						$("#msg").append("<br>Opening window");
+						win1 = window.open(URL);
+						$("#msg").append("<br>Opened");
 
 					}else{
-						win0 = window.open(URL, "", "location=no");
+						win0 = window.open(URL);
 					}
 
 					try {
