@@ -17,17 +17,10 @@
 		}
 
 		#msg {
-			position: absolute;
-
-			margin: 0;
-			padding: 0;
-			top: 0px;
-			left: 0px;
 			width: 100%;
-			font-size: 4em;
-			z-index: 100;
+			font-size: 1em;
 			font-family: monospace;
-			color: red;
+			color: black;
 		}
 	</style>
 	<script>
@@ -122,6 +115,7 @@
 	<h1>Spaceinfo v1</h1>
 	<p>current show: {{ showname }}</p>
 	<button onClick="nextPage()">next</button>
+	<span id="msg"></span>
 </body>
 
 </html>
