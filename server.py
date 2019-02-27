@@ -114,7 +114,7 @@ def generateDirectory(slideshow):
 
 	servername = ""
 	logger.info("Generating directory for slideshow %s" % slideshow)
-	DEFAULT_TIMEOUT = 30
+	DEFAULT_TIMEOUT = 60
 	p = os.path.relpath("pages")
 
 	for d in os.listdir(p):
