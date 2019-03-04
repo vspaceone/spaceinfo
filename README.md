@@ -8,18 +8,28 @@ This repo provides as interface for displaying multiple webpages in a slideshow.
 ## Install
 Install python, pip, flask.
 
-More information follows.
-
 ## Run
 ```
 bash run.sh
 ```
 This runs on localhost. You have to configure your nginx or apache to redirect to port 8080 from the given url.
 
-## Wie kann ich Pages anlegen
-Leg einen Unterordner von `pages` an, in dem eine `index.html` oder eine `link.txt` Datei liegt. Wird eine `link.txt` Datei gefunden wird der darin enthaltene Link geöffnet. Andern falls wird die `index.html` angezeigt.
+## How to add slides?
+To add slides you should add a subfolder in `pages`. But a `config.ini` file into this directory. This file should look like
+```
+[Page-Settings]
+# If external link is set; The link is used instead of the local index.html file
+#external_link = https://www.netzfrequenz.info/charts/gauge_full.php
 
-Einige Beispiel habe ich bereits unter `templates` abgelegt.
+# If timeout is set; The page will be shown for this time in seconds. If not set, the default timeout will be used
+#timeout = 42
+
+# In which slideshow should this page occur?
+slideshows = internal maxpriv
+```
+You need to specifiy either a `external_link` in your `config.ini` or add a `index.html` file to the directory. You could add you slide to multiple `slideshows` by specifying them separated by a space.
+
+You find some templates in the `templates` directory.
 
 ## Schwarze Ränder auf RaspberryPi
 Disable Overscan via `raspi-config` - `Advanced Options` - `Overscan`
