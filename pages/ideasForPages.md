@@ -3,5 +3,4 @@
 + Networkmonitor
 + Nagiosmonitor
 + Jenkinsmonitor (in Arbeit)
-+ Label Beschreibung in eine Seite mit Scrollbar
 
