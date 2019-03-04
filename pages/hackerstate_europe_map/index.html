@@ -32,12 +32,11 @@
     <script>
 
         function update() {
-            $.getJSON("https://spaceapi.fixme.ch/directory.json")
+            $.getJSON("http://directorymirrorserver.noppelmax.online/directory.json")
                 .done(function (data, textStatus) {
                     keys = Object.keys(data);
-                    values = Object.values(data);
                     for (var k in Object.keys(data)) {
-                        updateSpace(keys[k], values[k]);
+                        updateSpace(keys[k]);
                     }
                 });
         }
@@ -104,45 +103,53 @@
 
 
 
-        function updateSpace(name, url) {
-            $.getJSON(url)
+        function updateSpace(name) {
+            $.getJSON("http://directorymirrorserver.noppelmax.online/spaces/"+encodeURI(name)+".json")
                 .done(function (data, textStatus) {
                     try {
-                        console.log([data.location.lon, data.location.lat]);
+                      if(data.location.lon && data.location.lat){
+                        //console.log([data.location.lon, data.location.lat] + "  " + name);
                         p = new ol.geom.Point(ol.proj.transform([data.location.lon, data.location.lat], 'EPSG:4326', 'EPSG:3857'));
-                            var f = new ol.Feature({
-                                name: name,
-                                geometry: p
-                            });
-                        if (data.api == "0.13") {
-                            if (data.state.open == true) {
-                                openSpaces.addFeature(f);
-                            } else {
-                                closedSpaces.addFeature(f);
-                            }
-                        } else if (data.api == "0.12" || data.api == "0.11" || data.api == "0.10" || data.api == "0.9" || data.api == "0.8") {
+                        console.log(p.getCoordinates() + "---" + name)
+                        var f = new ol.Feature({
+                          name: name,
+                          geometry: p
+                        });
+                        // FIXME: For the Tangleball space the location resolution is not working. For me it seems their api is probaly implemented.
+                        if(isNaN(p.getCoordinates()[0]) || isNaN(p.getCoordinates()[1])){
+                          console.log("Error: On resolving location: " + name);
+                        }else{
+                          if (data.api == "0.13") {
+                              if (data.state.open == true) {
+                                  openSpaces.addFeature(f);
+                                } else {
+                                  closedSpaces.addFeature(f);
+                                }
+                              } else if (data.api == "0.12" || data.api == "0.11" || data.api == "0.10" || data.api == "0.9" || data.api == "0.8") {
+                                if (data.open == true) {
+                                  openSpaces.addFeature(f);
+                                } else {
+                                  closedSpaces.addFeature(f);
+                                }
+                              } else {
 
-                            if (data.open == true) {
-                                openSpaces.addFeature(f);
-                            } else {
-                                closedSpaces.addFeature(f);
-                            }
-                        } else {
-
-                        }
+                              }
+                          }
+                      }else{
+                        console.log("Error: No location information included: " + name)
+                      }
                     } catch (e) {
-                        console.log("Error: Unknown API Version", data)
+                        console.log("Error: Unknown API Version: ", data)
                     }
 
 
                 })
                 .fail(function (data, textStatus) {
-
-                    console.log("Error: Failed ot receive.")
+                    console.log("Error: Failed ot receive.: " + name)
                 });
         }
 
-        window.setInterval(update, 100000);
+        //window.setInterval(update, 100000);
         update();
     </script>
 
