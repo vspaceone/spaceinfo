@@ -1,0 +1,235 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <style>
+  body{
+    background-color: black;
+    color: #e0e0e0;
+    overflow: hidden;
+  }
+
+  #container {
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    margin-top: 3%;
+  }
+
+  #txt > h1 {
+    font-size: 2em;
+    margin: 20px;
+  }
+
+  #txt {
+    font-size: 3em
+  }
+  </style>
+
+
+</head>
+
+<body>
+  <div id="container">
+    <span id="txt"></span>
+  </div>
+
+  <script>
+
+  var patterns = [
+  {
+    "title": "The Infrastructure Pattern",
+    "problem": "You have a chicken-and-egg-problem: What should come ﬁrst? Infrastructure or projects?",
+    "solution": "Make everything infrastructure-driven. Rooms, power, servers, connectivity, and other facilities come ﬁrst. Once you have that, people will come up with the most amazing projects you didn’t think about in the ﬁrst place."
+  },
+  {
+    "title": "The Grace Hopper Pattern",
+    "problem": "Is now really the time to start your hackerspace? Shouldn’t you wait? Have you really thought of all the problems? ",
+    "solution": "Sure it is the time! It’s always easier to ask forgiveness than it is to get permission. (Grace Hopper, US Navy Rear Admiral and computer scientist) It’s important to start. Many problems you think of before will vanish as soon as you get started. When in doubt, do it!"
+  },
+  {
+    "title": "The Community Pattern",
+    "problem": "How should your group communicate? ",
+    "solution": "You are hackers, you know what to do. Stop slacking and set up a mailing list, a wiki, and an IRC channel. You will need all three. Think about a platform for discussion, storage for documentation and real-time communication. "
+  },
+  {
+    "title": "The Critical Mass Pattern",
+    "problem": "You want to set up a hackerspace in your city alone. You fail. ",
+    "solution": "The rule of thumb is 2 + 2. You need a partner to get the initial idea kicked oﬀ, making two of you. You need two more people in order to get real work done. Don’t start before you are at least four people. From this point it’s easy to recruit more people. Aim for ten people for a start. "
+  },
+  {
+    "title": "The Strong Personalities Pattern",
+    "problem": "Nothing gets done. You all want the hackerspace, but it’s so hard to get oﬀ your asses. ",
+    "solution": "Look for strong personalities as members of your original group. You will need people with experience in building structures. Look for people who have authority ( and get respect ), not for people who use authority ( and get laughed at ). "
+  },
+  {
+    "title": "The Charitable Member Pattern",
+    "problem": "You have extreme anxiety over cash flow month-to-month and members seem to see the space as a business that provides them a service instead of a charity they actively help make possible for their community. ",
+    "solution": "Do not offer other membership plans until as many members as you need to pay for basic operating expenses have either payed or pledged for a year in advance. If they pledge, make sure their payments are delivered using an automated method to minimize stress. Let these Charitable Members know that they are the ones that are making the space a reality through their generous donation of time and money. This may also help some spaces achieve non-profit status. Once the annual expenses are covered each year, the charitable members can decide what other membership options they will offer to the community. Even FREE will be a viable option at this point! You can offer Charitable Memberships even after the goal has been met by emphasizing the charitable component and giving them perks such as voting rights, the right to hold offices and the right to sponsor meetings and workshops at the space. "
+  },
+  {
+    "title": "The Landlord and Neighbourhood Pattern",
+    "problem": "You have found the perfect hackerspace, but the landlord seems to be weird. Also, the neighbours are picky. ",
+    "solution": "Choose wisely. A benevolent,but uninterested landlord and cool neighbours can be the decisive reasons why the hackerspace takes oﬀ or not. Not so cool neighbours may call the cops at 2AM. Depending on your projects, this may be a serious problem. As hackers you do not live the majority lifestyle — look for neighbours who are also weird and outside the majority. "
+  },
+  {
+    "title": "The Roommate Anti-Pattern",
+    "problem": "You need a space for meetings and as a lab, to store and work on materials for projects. In order to minimize rent or out of sympathy, you think it’s great when someone lives in your space. But somehow it doesn’t work, as you cannot use the lab anymore. ",
+    "solution": "Guest are ﬁne, but don’t let anyone live there. Kick them out if necessary. BUT Hackbases: Some people have been building Hackbases, live-in hackerspaces. They think you can easily (and should) live inside a hackerspace, if everything is properly set up for that."
+  },
+  {
+    "title": "The Séparée Pattern",
+    "problem": "You want to chill, discuss, or work in small groups. But the main room is occupied: There are simply too many people at your space. Or you want to smoke a cigarette at the space without disturbing non-smokers. ",
+    "solution": "Look for a hackerspace with smaller, separate rooms. Use curtains or doors to separate them from the main room. Separate rooms can also be used for smokers in a non-smoking hackerspace. "
+  },
+  {
+    "title": "The Kitchen Pattern",
+    "problem": "As a human being, you need food. As a hacker, you need caﬀeine and food at odd times. ",
+    "solution": "Have a kitchen at your space. Nothing brings people together like cooking together. Have fridges for Club-Mate. Selling soft-drinks will help you raise money for the rent. Invest in the single most important piece of hardware: a dishwasher. Have a freezer for pizzas and buy decent kitchen equipment. Show nerds how to cook real food. "
+  },
+  {
+    "title": "The Coziness Pattern",
+    "problem": "All work and no play makes Jack a dull boy. There must be something else than only workstations and electronics. ",
+    "solution": "Bring in couches, sofas, comfortable chairs, tables, ashtrays, ambient light, stereo equipment, a projector, and video game consoles. Bringing in plants didn’t work for us. "
+  },
+  {
+    "title": "The Shower Pattern",
+    "problem": "After long hacking sessions, you will start to smell funny. Also, guests to your space seem to neglect personal hygiene. ",
+    "solution": "The discriminate hackerspace has a bathroom with a shower. After a long hacking night you’ll have the best ideas while taking a shower. Guests from other hackerspaces may stay for several days. Ideally you will buy a washing machine to get rid of all the smelly towels."
+  },
+  {
+    "title": "The Membership Fees Pattern",
+    "problem": "You need to pay your rent and utilities. Larger projects need to be funded. ",
+    "solution": "Collect fees regularly. Make no exceptions, ever. Choose an appropriate amount. Have discounts for students. Have at least three months of rent on your account, all the time, no exceptions. Elect a totalitarian treasurer. "
+  },
+  {
+    "title": "The Sponsoring Anti-Pattern",
+    "problem": "You think it’s a good idea to meet at a company that likes you or at a university where most of you study anyway. ",
+    "solution": "Never ever depend your space on external sponsors. Donations are great, but remember that companies can go bankrupt and you won’t be a student forever. Meeting at a university will exclude high-school kids or people who don’t like the university culture. No company, no matter how nice, will give away presents forever without asking for favours in return. That’s capitalism... "
+  },
+  {
+    "title": "The Plenum Pattern",
+    "problem": "You want to resolve internal conﬂicts, exercise democratic decision-making, and discuss recent issues and future plans. ",
+    "solution": "Have a regular meeting with possibly all members. Have an agenda and set goals. Make people commit themselves to tasks. Write down minutes of the meeting and post them on a mailing list and/or Wiki. Go for the only date that works: once a week. Weird dates like “ﬁrst full-moon after the third Friday” will never work. Likewise doesn’t every other week or anything similar. "
+  },
+  {
+    "title": "The Tuesday Pattern",
+    "problem": "Every weekday sucks. You will not ﬁnd any day when every hacker can attend a meeting. Someone always has an appointment. ",
+    "solution": "Meet on Tuesday. Since all days are equally bad, just pick the Tuesday. End of discussion. "
+  },
+  {
+    "title": "The Sticky Pattern",
+    "problem": "You use The Plenum Pattern, but not everyone turns up regularly, such that you have too few participants to make a sound or actionable decision at any one time. ",
+    "solution": "Make your topic sticky across multiple regular meetings, so that people attending less frequently can contribute to it, until enough input is received. "
+  },
+  {
+    "title": "The OpenChaos Pattern",
+    "problem": "You want to draw in new people and provide an interface to the outside world. ",
+    "solution": "Have a monthly, public, and open lecture, talk or workshop. Announce it at your local time (no UTC, CEST, EST or something else). Invite interesting visitors to your regular meetings and don’t tell the weirdos about them. "
+  },
+  {
+    "title": "The U23 Pattern",
+    "problem": "Your older members graduate from college or get married. Your space needs fresh blood. ",
+    "solution": "Recruit young people through a challenge you set up for them, in form of a course that spans several weeks. Overwhelm them with problems from hardware and software hacking and let them solve it in teams. Prepare for the challenge and tutor them, but give them room to experiment. Retire after the team-building and let the smartest of the young ones run the space. Have married with children couples join Hacker Scouts. "
+  },
+  {
+    "title": "The Sine Curve Pattern",
+    "problem": "You did everything right. You had some big events and a nice time in your shiny hackerspace. But after some time the enthusiasm goes away and your projects are stagnating. ",
+    "solution": "Peak enthusiasm at a hackerspace has the form of a sine curve with a cycle duration of four years. Keep the hackerspace running, even if the feel-good-factor is temporarily on holidays. Chances are your space will be awesome again in two years. Don’t give up! Maybe an exciting new member will knock on your door tomorrow. "
+  },
+  {
+    "title": "The Consensus Pattern",
+    "problem": "You need a group decision and want to make sure no one gets left behind. ",
+    "solution": "Use the weekly plenum for discussion. Don’t take votes — discuss until everyone agrees. For some problems this pattern is the best. "
+  },
+  {
+    "title": "The Democracy Pattern",
+    "problem": "You need to make a group decision. Discussion does not seem to lead you anywhere. ",
+    "solution": "Use the weekly plenum for discussion. Do take votes — the strongest minority wins over the weaker minorities. For some problems this pattern is the best. See, however, fractional voting. "
+  },
+  {
+    "title": "The Command Pattern",
+    "problem": "Nobody does the dishes. Your hackerspace looks crappy. No one seems to care. ",
+    "solution": "Order people to do the dishes, take out the trash, keep the infrastructure up and running. Yell, if necessary! But always participate. For some problems this pattern is the best. "
+  },
+  {
+    "title": "The sudo leadership Pattern",
+    "problem": "You started as a community of like-minded people, but suddenly you ﬁnd yourself in a dictatorship run by a single hacker. ",
+    "solution": "Do not have ranks. Use leadership temporarily, like for projects and when you really need it. Don’t have a single root. "
+  },
+  {
+    "title": "The Responsibility Pattern",
+    "problem": "You volunteered for the task of running a critical piece of infrastructure, e.g. the mail server, but you feel the sudden urge to slack. ",
+    "solution": "Just because volunteer work doesn’t get paid doesn’t mean it’s less important. Remember that you will directly hurt your friends and the hackerspace. Take pride in your volunteer work. It will make you grow stronger as a person and is satisfying. When you realise that you really cannot do the job anymore, your last task is to hand it over. "
+  },
+  {
+    "title": "The Debate Culture Pattern",
+    "problem": "You are in the middle of your weekly plenum. Everybody’s yelling, nothing gets done. ",
+    "solution": "Many geeks have very poor debate skills, the result of years of ﬂamewars on the Net. Make people with actual social skills lead the discussion. Those with a background in real-life political work (e.g. student council) were best for our group. Learn from them. Learn not to interrupt others."
+  },
+  {
+    "title": "The Bikeshed Anti-Pattern",
+    "problem": "You suggest creating something new for your hackerspace, like a bikeshed. But now all anyone will discuss is its colour. No bikeshed will be built. ",
+    "solution": "That’s a known problem. It's sometimes called Parkinson\'s Law of Triviality. If you suggest something that everybody else in your hackerspace can build, they will take part in the discussion. Even if it’s only the colour of the bikeshed, the design of the T-shirts, the Linux-distribution on the server, etc. Nerds tend to discuss trivial problems in epic detail, while more complex tasks will be ignored. Identify pointless discussion like these and just end them. "
+  },
+  {
+    "title": "The Private Talk Pattern",
+    "problem": "Someone causes a problem that cannot be resolved in the group. ",
+    "solution": "Let some experienced member of your group talk to the trouble-maker in private. Listen to the person. Let them know how the group feels about the problem without exposing them in front of the group. "
+  },
+  {
+    "title": "The Spooky Action at a Distance Anti-Pattern",
+    "problem": "Then, there is a controversial, dramatic, or public discussion among the current participants. A former member suddenly swoops in and does any of these:<ul><li>Writes long-winded emails about why one of these choices is terrible</li>    <li>Is oblivious to a new problem facing the space</li>    <li>Fails to understand that the culture of the space has changed</li>    <li>Complains about how terrible the space has become via social media</li></ul>. This sucks the energy out of those trying to resolve the debate. It makes it harder for problems to be solved, and poisons the next generation of your space's core members. The root of the problem is this: Because this person doesn't feel the consequences of their actions, they have less incentive to compromise. ",
+    "solution": "Of course, the usual conflict resolution patterns apply - calm discussion, person-to-person instead of broadcast, and mediation.<br>First, tell the person in question that they're triggering this anti-pattern. Encourage them to participate in the space again. Calmly explain that while their contributions are still valued, they should really try to understand how the space has evolved. Hopefully that's enough. Otherwise, ask everyone to participate solely in person at the meeting. Mailing-list debates rarely work in any case.<br>If the debate gets really nasty, unsubscribe the non-member from the mailing-list and see how long it takes them to notice. This is generally not excellent, but can be if it saves the sanity of everyone who does participate in the space. "
+  },
+  {
+    "title": "The Old Hardware Pattern",
+    "problem": "You can’t bring in shiny new hardware, as there is no space left. Your space has become a hardware museum ﬁlled with junk. ",
+    "solution": "Create a pile/stack where you put that old, unused hardware on. Let everybody take from it. Anything left within a while should be thrown away. But make sure you announce that step not only once, but at least three times with an escalation system. "
+  },
+  {
+    "title": "The Key Pattern",
+    "problem": "You want the hackerspace accessible all the time. You do not want to call somebody else during the night to lock the hackerspace when you leave. ",
+    "solution": "Hand out keys. Track who owns a key. Have a good lock so that nobody can copy the key without your permission. Collect a deposit for the key, so that the owner takes care for it. Or build a nice electronic locking system (with all cool things and all messy problems)... "
+  },
+  {
+    "title": "The Mate-soda Pattern",
+    "problem": "You need to raise funds. You want to stay up longer during night. You want to receive really good impressions without drugs. ",
+    "solution": "Buy at least one pallet of any Mate-soda or energy drink and sell it in your hackerspace. You will realise the results very soon! "
+  },
+  {
+    "title": "The Library Pattern",
+    "problem": "You have lots of interesting books and/or donations of new ones keep coming in. You want a system to keep track of and provide a search interface for your valuable dead tree objects. ",
+    "solution": "Siehe https://wiki.hackerspaces.org/The_Library_Pattern"
+  },
+  {
+    "title": "The Flat Surface Pattern",
+    "problem": "Every usable flat surface eventually gets taken over by clutter. ",
+    "solution": "Promote self-responsability: unused stuff is easier to find where it belongs, and no unused stuff belongs to the flat surface. Regularly assign someone to declutter. Alternatively, throw away everything on the flat surface. End of discussion. "
+  }
+
+  ]
+
+
+
+  function update(){
+    i = parseInt(Math.random() * (patterns.length - 1))
+    $("#txt").hide();
+    $("#txt").fadeIn(200).html("<h1>" + patterns[i].title + "</h1><br><b>Problem</b>: "+patterns[i].problem + " <br><br><b>Solution</b>: " + patterns[i].solution) ;
+  }
+  setInterval(update,20000);
+  update();
+
+</script>
+
+</body>
+
+</html>
