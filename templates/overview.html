@@ -42,7 +42,7 @@
 					if( url.slice(0,4) == "page"){
 						url = "../" + url;
 					}
-					$('<iframe src="' + url + '"frameborder="0" scrolling="no" width="1024px" height="768px" style="padding: 2px;"></iframe><br>').appendTo('#slides');
+					$('<h2>' + data[index].title + '</h2><iframe src="' + url + '"frameborder="0" scrolling="no" width="1024px" height="768px" style="padding: 2px;"></iframe><br>').appendTo('#slides');
 				}
 
 			}catch(err){
