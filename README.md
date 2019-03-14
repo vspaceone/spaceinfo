@@ -31,6 +31,8 @@ You need to specifiy either a `external_link` in your `config.ini` or add a `ind
 
 You find some templates in the `templates` directory.
 
+Make PullRequest from a branch in THIS repository! :)
+
 ## Schwarze Ränder auf RaspberryPi
 Disable Overscan via `raspi-config` - `Advanced Options` - `Overscan`
 
