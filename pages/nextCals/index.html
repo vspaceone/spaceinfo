@@ -229,8 +229,7 @@
 
       $.each(data, function(i){
 
-        itm = data[i];
-        console.log(data[i]);
+        itm = data["happenings"][i];
 
         d = new Date(itm.start);
         if(itm.end){
