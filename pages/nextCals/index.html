@@ -160,9 +160,9 @@
       var items = [];
       datNow = new Date(Date.now());
 
-      $.each(data, function(i){
+      $.each(data.happenings, function(i){
 
-        itm = data[i];
+        itm = data.happenings[i];
 
         d = new Date(itm.start);
         if(itm.end){
@@ -229,7 +229,7 @@
 
       $.each(data, function(i){
 
-        itm = data["happenings"][i];
+        itm = data[i];
 
         d = new Date(itm.start);
         if(itm.end){
