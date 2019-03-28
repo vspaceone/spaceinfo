@@ -6,12 +6,19 @@ This repo provides as interface for displaying multiple webpages in a slideshow.
 ![Bildschirme im Space](spaceinfo.jpg)
 
 ## Install
-Install python, pip, flask.
+Install anaconda
+```
+conda create --name spaceinfo python=3.5
+conda activate spaceinfo
+pip install flask
+```
 
 ## Run
 ```
+conda activate spaceinfo
 bash run.sh
 ```
+
 This runs on localhost. You have to configure your nginx or apache to redirect to port 8080 from the given url.
 
 ## How to add slides?
