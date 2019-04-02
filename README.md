@@ -15,7 +15,7 @@ bash run.sh
 This runs on localhost. You have to configure your nginx or apache to redirect to port 8080 from the given url.
 
 ## How to add slides?
-To add slides you should add a subfolder in `pages`. But a `config.ini` file into this directory. This file should look like
+To add slides you should add a subfolder in `pages`. But a `config.ini` file into this directory. This file should look like:
 ```
 [Page-Settings]
 # If external link is set; The link is used instead of the local index.html file

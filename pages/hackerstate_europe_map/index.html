@@ -32,7 +32,7 @@
     <script>
 
         function update() {
-            $.getJSON("http://directorymirrorserver.noppelmax.online/directory.json")
+            $.getJSON("http://directorymirrorserver.noppelmax.online/spaces")
                 .done(function (data, textStatus) {
                     keys = Object.keys(data);
                     for (var k in Object.keys(data)) {
@@ -104,7 +104,7 @@
 
 
         function updateSpace(name) {
-            $.getJSON("http://directorymirrorserver.noppelmax.online/spaces/"+encodeURI(name)+".json")
+            $.getJSON("http://directorymirrorserver.noppelmax.online/spaces/"+encodeURI(name))
                 .done(function (data, textStatus) {
                     try {
                       if(data.location.lon && data.location.lat){
