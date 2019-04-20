@@ -1,0 +1,142 @@
+[
+  {
+    "enddate": "", 
+    "link": "pages/hackerdoge/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "hackerdoge"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/netzpolitik.org/index.html", 
+    "startdate": "", 
+    "timeout": 42, 
+    "title": "netzpolitik.org"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/20190602_GPN19/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "20190602_GPN19"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/hackerethik/index.html", 
+    "startdate": "", 
+    "timeout": 42, 
+    "title": "hackerethik"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/githuborg/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "githuborg"
+  }, 
+  {
+    "enddate": "", 
+    "link": "https://c3.elektrollart.org/", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "daysleft"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/MemesWelcome/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "MemesWelcome"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/projects/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "projects"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/clock/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "clock"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/labels/index.html", 
+    "startdate": "", 
+    "timeout": 42, 
+    "title": "labels"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/Pi/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "Pi"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/20190108_Plenum/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "20190108_Plenum"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/ElektronikRauch/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "ElektronikRauch"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/preise/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "preise"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/LookingForTechEvents/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "LookingForTechEvents"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/Aufraeumen/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "Aufraeumen"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/doorstate/index.html", 
+    "startdate": "", 
+    "timeout": 20, 
+    "title": "doorstate"
+  }, 
+  {
+    "enddate": "", 
+    "link": "https://www.netzfrequenz.info/charts/gauge_full.php", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "netzfreqenz"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/vspace_wiki_feed/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "vspace_wiki_feed"
+  }, 
+  {
+    "enddate": "", 
+    "link": "pages/vspaceRulesPropaganda/index.html", 
+    "startdate": "", 
+    "timeout": 30, 
+    "title": "vspaceRulesPropaganda"
+  }
+]
