@@ -108,8 +108,8 @@
 	<script>
   function update() {
     $.getJSON("https://vspace.one/spaceapi.json", function(d){
-        $("#maschinenraum-temperature").text(d.sensors.temperature[1].value + "" + d.sensors.temperature[1].unit);
-				$("#maschinenraum-humidity").text(d.sensors.humidity[1].value + "" + d.sensors.humidity[1].unit);
+        $("#maschinenraum-temperature").text(d.sensors.temperature[0].value + "" + d.sensors.temperature[0].unit);
+	$("#maschinenraum-humidity").text(d.sensors.humidity[0].value + "" + d.sensors.humidity[0].unit);
     });
 
   }

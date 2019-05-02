@@ -54,6 +54,24 @@
 		var timeout = 0
 		var DEFAULT_TIMEOUT = 30
 
+		function checkConditionsForSlide(slide){
+			dat = new Date(Date.now());
+			if(slide.enddate){
+			    edate = new Date(slide.enddate);
+				if( dat < edate){
+					return false;
+				}
+			}
+
+			if(slide.startdate){
+			    sdate = new Date(slide.startdate);
+				if( dat > sdate){
+					return false;
+				}
+			}
+
+			return true
+		}
 
 		var nextPage = function() {
 			try{
@@ -62,7 +80,7 @@
 					var d;
 					do {
 						d = Math.floor((Math.random() * data.length));
-					} while( URL == data[d].link);
+					} while( URL == data[d].link || checkConditionsForSlide(data[d]) == false);
 					console.log("Loading ",data[d].link);
 					if(data[d].link.slice(0, 4) == "http"){
 						var URL = data[d].link;
@@ -75,15 +93,20 @@
 						console.log("Load timeout from json" + data[d].timeout);
 						timeout = data[d].timeout;
 					}else{
-						console.log("Load defaul timeout");
+						console.log("Load default timeout");
 						timeout = DEFAULT_TIMEOUT
 					}
 					$("#msg").append("<br>Opening window: " + URL );
+					var cbSimulate = $('#cbSimulate').is(":checked") == true;
 					if(activeWin == 0){
-						win1 = window.open(URL);
+					    if( cbSimulate != true){
+						    win1 = window.open(URL);
+						}
 
 					}else{
-						win0 = window.open(URL);
+					    if( cbSimulate != true){
+						    win0 = window.open(URL);
+						}
 					}
 
 					try {
@@ -144,7 +167,10 @@
     <h5 class="card-title">Spaceinfo {{version}}</h5>
 	  <p class="card-text">current show: <b>{{ showname }}</b></p>
 
-
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="cbSimulate" value="1">
+        <label class="form-check-label" for="cbSimulate">simulate</label>
+    </div>
 	<button onClick="nextPage()" class="btn btn-primary">next slide</button>
   </div>
 </div>
