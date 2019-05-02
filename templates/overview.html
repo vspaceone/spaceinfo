@@ -45,7 +45,17 @@
 						var port = window.location.port
 						var URL = host + ":" + port + "/" + data[index].link;
 					}
-					$('<hr><h2>' + data[index].title + '</h2><a href="' + URL + '">open</a><br><iframe src="' + URL + '"frameborder="0" scrolling="no" width="1024px" height="768px" style="padding: 2px;"></iframe><br>').appendTo('#slides');
+					if(data[index].startdate){
+						var startdate = new Date(data[index].startdate);
+					}else{
+						var startdate = "forever"
+					}
+					if(data[index].enddate){
+						var enddate = new Date(data[index].enddate);
+					}else{
+						var enddate = "forever"
+					}
+					$('<hr><h2>' + data[index].title + '</h2><a href="' + URL + '">open</a><p>' + startdate + ' - ' + enddate + '</p><br><iframe src="' + URL + '"frameborder="0" scrolling="no" width="1024px" height="768px" style="padding: 2px;"></iframe><br>').appendTo('#slides');
 				}
 
 			}catch(err){

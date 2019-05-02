@@ -14,8 +14,8 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 
 # Constants
 VERSION_MAJOR = 0
-VERSION_MINOR = 3
-VERSION_PATCH = 1
+VERSION_MINOR = 4
+VERSION_PATCH = 0
 VERSION = "v"+str(VERSION_MAJOR)+"."+str(VERSION_MINOR)+"."+str(VERSION_PATCH)
 
 
@@ -58,6 +58,9 @@ signal.signal(signal.SIGINT, sigint_handler)
 #	s.end_headers()
 #	s.wfile.write(generateDirectory("internal"))
 
+
+pathToPages = "../spaceinfo-pages"
+
 def printUsage():
 	print("Usage: server.py")
 
@@ -88,7 +91,7 @@ def displayShowOverview(showname):
 
 @app.route('/pages/<path:path>')
 def sendStatic(path):
-    return flask.send_from_directory('pages', path)
+    return flask.send_from_directory(pathToPages, path)
 
 @app.route('/version.json')
 def getVersion():
@@ -99,15 +102,15 @@ def getVersion():
 
 
 def getShows():
-	p = os.path.relpath("pages")
+	p = os.path.relpath(pathToPages)
 	slideshows = []
 
 	for d in os.listdir(p):
-		if not os.path.isfile(os.path.join("pages",d)):
-			for f in os.listdir(os.path.join("pages",d)):
+		if not os.path.isfile(os.path.join(pathToPages,d)):
+			for f in os.listdir(os.path.join(pathToPages,d)):
 				if f == "config.ini":
 					config = configparser.ConfigParser()
-					config.read(os.path.join("pages",d,f))
+					config.read(os.path.join(pathToPages,d,f))
 					try:
 						for s in config["Page-Settings"]["slideshows"].split(" "):
 							if s.strip() != "":
@@ -122,19 +125,19 @@ def generateDirectory(slideshow):
 	servername = ""
 	logger.info("Generating directory for slideshow %s" % slideshow)
 	DEFAULT_TIMEOUT = 60
-	p = os.path.relpath("pages")
+	p = os.path.relpath(pathToPages)
 
 	for d in os.listdir(p):
-		if not os.path.isfile(os.path.join("pages",d)):
+		if not os.path.isfile(os.path.join(pathToPages,d)):
 			link = ""
 			timeout = DEFAULT_TIMEOUT
 			startdate = ""
 			enddate = ""
 			slideshows = []
-			for f in os.listdir(os.path.join("pages",d)):
+			for f in os.listdir(os.path.join(pathToPages,d)):
 				if f == "config.ini":
 					config = configparser.ConfigParser()
-					config.read(os.path.join("pages",d,f))
+					config.read(os.path.join(pathToPages,d,f))
 					try:
 						link = config["Page-Settings"]["external_link"]
 					except KeyError:
@@ -162,7 +165,7 @@ def generateDirectory(slideshow):
 
 			# Checking for Errors
 			if link == "":
-				logger.error(os.path.join("pages",d)+" got no index.html neither config.cfg")
+				logger.error(os.path.join(pathToPages,d)+" got no index.html neither config.cfg")
 				continue
 			if slideshow not in slideshows:
 				continue
