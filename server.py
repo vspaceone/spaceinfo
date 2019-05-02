@@ -14,7 +14,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 
 # Constants
 VERSION_MAJOR = 0
-VERSION_MINOR = 2
+VERSION_MINOR = 3
 VERSION_PATCH = 0
 VERSION = "v"+str(VERSION_MAJOR)+"."+str(VERSION_MINOR)+"."+str(VERSION_PATCH)
 
@@ -64,7 +64,7 @@ def printUsage():
 @app.route("/")
 def listShows():
 	print(getShows())
-	resp = flask.make_response(flask.render_template('home.html', shows = getShows()), 200)
+	resp = flask.make_response(flask.render_template('home.html', shows = getShows(), version=VERSION), 200)
 	resp.headers["Content-type"] = "text/html; charset=utf-8"
 	return resp
 
@@ -76,19 +76,26 @@ def loadShowJSON(showname):
 
 @app.route("/shows/<showname>.html")
 def displayShow(showname):
-	resp = flask.make_response(flask.render_template('start.html', showname=showname), 200)
+	resp = flask.make_response(flask.render_template('start.html', showname=showname, version=VERSION), 200)
 	resp.headers["Content-type"] = "text/html; charset=utf-8"
 	return resp
 
 @app.route("/shows/overviews/<showname>.html")
 def displayShowOverview(showname):
-	resp = flask.make_response(flask.render_template('overview.html', showname=showname), 200)
+	resp = flask.make_response(flask.render_template('overview.html', showname=showname, version=VERSION), 200)
 	resp.headers["Content-type"] = "text/html; charset=utf-8"
 	return resp
 
-@app.route('/shows/pages/<path:path>')
+@app.route('/pages/<path:path>')
 def sendStatic(path):
     return flask.send_from_directory('pages', path)
+
+@app.route('/version.json')
+def getVersion():
+	r = (json.dumps({"major":VERSION_MAJOR,"minor":VERSION_MINOR,"patch":VERSION_PATCH,"str":VERSION}, indent=2, sort_keys=True))
+	resp = flask.make_response(r, 200)
+	resp.headers["Content-type"] = "application/json; charset=utf-8"
+	return resp
 
 
 def getShows():

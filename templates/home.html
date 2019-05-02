@@ -1,18 +1,23 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	 crossorigin="anonymous"></script>
-	 <!-- Latest compiled and minified CSS -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
- <!-- Optional theme -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
- <!-- Latest compiled and minified JavaScript -->
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<style>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <style>
 		body {
 			margin: 0;
 			margin-left: 10%;
@@ -20,40 +25,79 @@
 			margin-bottom: 50px;
 			padding: 0;
 		}
-	</style>
-	<script>
+		h1 {
+		  margin: 30px;
+		}
+
+		h2 {
+		  font-size: 1.3em
+		}
+
+		.card {
+		  margin: 4px;
+		}
+
+
+    </style>
+    <script>
 		$(document).ready(function () {
 
 		})
 
-	</script>
+
+
+    </script>
 </head>
 
 <body>
-	<h1>Spaceinfo v1.1 Interface</h1>
-	<h2>How it works!</h2>
-	<p>You run your Browser on any device in kioskmode and select one of the slideshows available.</p>
+<h1>Spaceinfo {{version}} Interface</h1>
 
-	<h2>Slideshows</h2>
-	<p>Every page could be part of multiple slideshows. Select which slideshow it should be part of in settings of the page.</p>
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">Slideshows</h5>
+        <p class="card-text">You run your Browser on any device in kioskmode and select one of the slideshows
+            available.</p>
 
-	<h2>Available Slideshows<h2>
-		<ul>
-			{% for show in shows %}
-			<li><a href="/shows/{{ show }}.html">{{ show }}</a> | Slide-Overview: <a href="/shows/overviews/{{ show }}.html">{{ show }}</a></li>
-			{% endfor %}
-		</ul>
+        <p class="card-text">Every page could be part of multiple slideshows. Select which slideshow it should be part
+            of in settings of the page.</p>
 
-		<h2>New Page</h2>
-		<p>Add a new page by clicking <a href="?action=newpage">here (not implemented)</a></p>
-		<p>For the moment you could add pages by making a git commit to <a href="https://github.com/vspaceone/spaceinfo">github spaceinfo Branch: master</a>.</p>
+        <p class="card-text"><b>Available Slideshows</b></p>
+        <p class="card-text">
+        <ul>
+            {% for show in shows %}
+            <li><a href="/shows/{{ show }}.html">{{ show }}</a> | Slide-Overview: <a
+                    href="/shows/overviews/{{ show }}.html">{{ show }}</a></li>
+            {% endfor %}
+        </ul>
+        </p>
 
-		<h2>New slideshow</h2>
-		<p>Add a new slideshow by clicking <a href="?action=slideshow">here (not implemented)</a></p>
-		<p>You could add a new Slideshow just by write a new string in the config.ini files.</p>
 
-		<h2>config.ini Files</h2>
-		<pre>
+        <button onClick="nextPage()" class="btn btn-primary">next slide</button>
+    </div>
+</div>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">New Page</h5>
+        <p class="card-text">Add a new page by clicking <a href="?action=newpage">here (not implemented)</a></p>
+        <p class="card-text">For the moment you could add pages by making a git commit to <a
+                href="https://github.com/vspaceone/spaceinfo">github spaceinfo Branch: master</a>.</p>
+    </div>
+</div>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">New slideshow</h5>
+        <p class="card-text">Add a new slideshow by clicking <a href="?action=slideshow">here (not implemented)</a></p>
+        <p class="card-text">You could add a new Slideshow just by writing a new string in the config.ini files.</p>
+    </div>
+</div>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">config.ini Files</h5>
+        <p class="card-text">
+        <code><pre>
 [Page-Settings]
 # If external link is set; The link is used instead of the local index.html file
 #external_link = https://www.netzfrequenz.info/charts/gauge_full.php
@@ -67,38 +111,124 @@ slideshows = internal
 # Date in ISO standard
 startdate = "2015-03-25"
 enddate = "2015-03-28"
-		</pre>
-		Put a <i>config.ini</i> file in any subfolder of <i>pages</i>.
+        </pre></code>
+        </p>
+        <p class="card-text">Put a <i>config.ini</i> file in any subfolder of <i>pages</i>.</p>
+    </div>
+</div>
 
-		<h2>API</h2>
-		<p>Request <pre>/shows/internal.json</pre> to get the show internal setting. Response looks like
 
-		<pre>
-			[
-			  {
-			    "link": "pages/hackerdoge/index.html",
-			    "timeout": 30
-			  },
-			  {
-			    "link": "pages/netzpolitik.org/index.html",
-			    "timeout": "42"
-			  },
-			  {
-			    "link": "pages/35c3_fahrplan/index.html",
-			    "timeout": 30
-			  },
-			  {
-			    "link": "pages/20190602_GPN19/index.html",
-			    "timeout": 30
-			  },
-				....
-			]
-		</pre>
-	</p>
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">API</h5>
+        <p class="card-text"><b>Request</b>
+            <code>/shows/internal.html</code>
+            to start the show <i>internal</i>.</p>
 
-		<h2>Questions</h2>
-		<p>For questions ask max</p>
+        <p class="card-text"><b>Request</b>
+            <code>/pages/pagename/index.html</code>
+            to show a specific internal page. </p>
 
-	</body>
+        <p class="card-text"><b>Request</b>
+            <code>/shows/internal.json</code>
+            to show all slides of the show <i>internal</i>. Response looks like
 
-	</html>
+        <code><pre>
+[
+  {
+    "enddate": "",
+    "link": "pages/MemesWelcome/index.html",
+    "startdate": "",
+    "timeout": 60,
+    "title": "MemesWelcome"
+  },
+  {
+    "enddate": "",
+    "link": "pages/hackerethik/index.html",
+    "startdate": "",
+    "timeout": 42,
+    "title": "hackerethik"
+  },
+  {
+    "enddate": "",
+    "link": "https://www.netzfrequenz.info/charts/gauge_full.php",
+    "startdate": "",
+    "timeout": 60,
+    "title": "netzfreqenz"
+  },
+    ....
+]
+		</pre></code>
+        </p>
+        <p class="card-text">You could add a new Slideshow just by write a new string in the config.ini files.</p>
+
+        <p class="card-text"><b>Request</b>
+            <code>/version.json</code>
+            to get the currently running version of spaceinfo. Response looks like
+
+        <code><pre>
+{
+  "major": 0,
+  "minor": 3,
+  "patch": 0,
+  "str": "v0.3.0"
+}
+		</pre></code>
+        </p>
+
+
+    </div>
+</div>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">Questions?</h5>
+        <p class="card-text">For questions ask max</p>
+    </div>
+</div>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">ChangeLog</h5>
+        <p class="card-text">
+            v0.3.0
+            <ul>
+                <li>NOT COMPATIBLE TO v0.2.0 as the route of <code>pages</code> has changed. Reload your show!</li>
+                <li>Moved pages from <code>shows/pages</code> to <code>pages/</code> because that is intuitive.</li>
+                <li>New design of all pages. Added clickable link to the overview page</li>
+                <li>Added documentation of some more routes</li>
+                <li>Added licence</li>
+            </ul>
+        </p>
+    </div>
+</div>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">Licence</h5>
+        <p class="card-text">Copyright (c) 2018 - 2019 vspace.one e.V.</p>
+        <p class="card-text">Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:</p>
+
+        <p class="card-text">The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.</p>
+
+        <p class="card-text">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+            SOFTWARE.</p>
+
+    </div>
+</div>
+
+
+</body>
+
+</html>
