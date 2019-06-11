@@ -58,14 +58,18 @@
 			dat = new Date(Date.now());
 			if(slide.enddate){
 			    edate = new Date(slide.enddate);
-				if( dat < edate){
+			    console.log("edate",edate);
+				if( dat > edate){
+					console.log("in the past!");
 					return false;
 				}
 			}
 
 			if(slide.startdate){
 			    sdate = new Date(slide.startdate);
-				if( dat > sdate){
+			     console.log("sdate",sdate);
+				if( dat < sdate){
+					console.log("in the future!")
 					return false;
 				}
 			}
