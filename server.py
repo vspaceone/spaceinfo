@@ -71,19 +71,10 @@ def sigint_handler(_signo, _stack_frame):
 	logger.info("SIGINT received. Cleaning up...")
 	sys.exit(0)
 
-logger.info("Running version "+VERSION)
-logger.info("Starting server...")
 signal.signal(signal.SIGTERM, sigterm_handler)
 signal.signal(signal.SIGINT, sigint_handler)
 
-#def do_GET(s):
-#	s.send_response(200)
-#	s.send_header("Content-type","application/json; charset=utf-8")
-#	s.end_headers()
-#	s.wfile.write(generateDirectory("internal"))
 
-
-pathToPages = "../spaceinfo-pages"
 
 def printUsage():
 	print("Usage: server.py")
@@ -161,27 +152,29 @@ def generateDirectory(slideshow):
 			slideshows = []
 			for f in os.listdir(os.path.join(pathToPages,d)):
 				if f == "config.ini":
-					config = configparser.ConfigParser()
+					config = configparser.RawConfigParser()
 					config.read(os.path.join(pathToPages,d,f))
+
+
 					try:
 						link = config["Page-Settings"]["external_link"]
-					except KeyError:
+					except Exception as e:
 						pass
 					try:
 						timeout = int(config["Page-Settings"]["timeout"])
-					except KeyError:
+					except Exception as e:
 						pass
 					try:
 						slideshows =  config["Page-Settings"]["slideshows"].split(" ")
-					except KeyError:
+					except Exception as e:
 						pass
 					try:
 						startdate = config["Page-Settings"]["startdate"]
-					except KeyError:
+					except Exception as e:
 						pass
 					try:
 						enddate = config["Page-Settings"]["enddate"]
-					except KeyError:
+					except Exception as e:
 						pass
 				if f == "index.html":
 					link = os.path.join(servername,"pages",d,f)
@@ -190,7 +183,7 @@ def generateDirectory(slideshow):
 
 			# Checking for Errors
 			if link == "":
-				logger.error(os.path.join(pathToPages,d)+" got no index.html neither config.cfg")
+				logger.error(os.path.join(pathToPages,d)+" got no index.html neither config.ini")
 				continue
 			if slideshow not in slideshows:
 				continue
