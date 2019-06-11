@@ -94,10 +94,8 @@
 						var URL = host + ":" + port + "/" + data[d].link;
 					}
 					if(data[d].timeout){
-						console.log("Load timeout from json" + data[d].timeout);
 						timeout = data[d].timeout;
 					}else{
-						console.log("Load default timeout");
 						timeout = DEFAULT_TIMEOUT
 					}
 					$("#msg").append("<br>Opening window: " + URL );
