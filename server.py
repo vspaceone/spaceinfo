@@ -5,12 +5,11 @@ import json
 import configparser
 import sys
 import logging
-
+from urllib.parse import unquote
 import signal
 
 import flask
-app = flask.Flask(__name__)
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
+
 
 # Constants
 VERSION_MAJOR = 0
@@ -19,8 +18,8 @@ VERSION_PATCH = 0
 VERSION = "v"+str(VERSION_MAJOR)+"."+str(VERSION_MINOR)+"."+str(VERSION_PATCH)
 
 
-PORT = 8080
-IP = "0.0.0.0"
+# Defaults
+pathToPages = "../spaceinfo-pages"
 
 # Setting up logger
 logger = logging.getLogger('server.py')
@@ -29,10 +28,35 @@ logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(lineno)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 
 logger.addHandler(ch)
+
+
+
+logger.info("Running version "+VERSION)
+logger.info("Starting server...")
+
+
+#def do_GET(s):
+#	s.send_response(200)
+#	s.send_header("Content-type","application/json; charset=utf-8")
+#	s.end_headers()
+#	s.wfile.write(generateDirectory("internal"))
+
+srvconfig = configparser.RawConfigParser()
+srvconfig.read("config.ini")
+
+try:
+	pathToPages = srvconfig["Server-Settings"]["pathToPages"].replace("\\\\","\\")
+	logger.warning(pathToPages)
+except:
+	pass
+
+app = flask.Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
+#app.config["SERVER_NAME"] = "127.0.0.1:8080"
 
 @app.after_request
 def add_header(response):
@@ -109,13 +133,14 @@ def getShows():
 		if not os.path.isfile(os.path.join(pathToPages,d)):
 			for f in os.listdir(os.path.join(pathToPages,d)):
 				if f == "config.ini":
-					config = configparser.ConfigParser()
-					config.read(os.path.join(pathToPages,d,f))
+					config = configparser.RawConfigParser()
 					try:
+						config.read(os.path.join(pathToPages,d,f))
 						for s in config["Page-Settings"]["slideshows"].split(" "):
 							if s.strip() != "":
 								slideshows.append(s)
-					except KeyError:
+					except Exception as e:
+						print(e)
 						pass
 	return list(set(slideshows))
 
