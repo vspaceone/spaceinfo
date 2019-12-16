@@ -158,6 +158,14 @@
 		var URL = "";
 		nextPage();
 		window.setInterval(checkTime, 1000);
+
+		$(document).keydown(function(e){
+            if (e.keyCode == 39) {
+                console.log( "right arrow pressed" );
+                nextPage();
+                return false;
+          }
+});
 	</script>
 
 </head>
