@@ -157,7 +157,7 @@ def generateDirectory(slideshow):
 
 
 					try:
-						link = config["Page-Settings"]["external_link"]
+						link = config["Page-Settings"]["external_link"].strip('\"')
 					except Exception as e:
 						pass
 					try:
