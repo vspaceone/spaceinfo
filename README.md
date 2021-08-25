@@ -6,16 +6,32 @@ This repo provides as interface for displaying multiple webpages in a slideshow.
 ![Bildschirme im Space](spaceinfo.jpg)
 
 ## Install
-Install anaconda
+### Install via anaconda
 ```
 conda create --name spaceinfo python=3.5
 conda activate spaceinfo
 pip install flask
 ```
+### Install via venv
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install flask
+```
 
 ## Run
+
+Activate the environment with
 ```
 conda activate spaceinfo
+```
+if you use anaconde and 
+```
+source venv/bin/activate
+```
+if you use venv. Then run
+
+```
 bash run.sh
 ```
 
