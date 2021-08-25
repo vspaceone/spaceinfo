@@ -25,7 +25,7 @@ Activate the environment with
 ```
 conda activate spaceinfo
 ```
-if you use anaconde and 
+if you use anaconda and 
 ```
 source venv/bin/activate
 ```
