@@ -10,13 +10,13 @@ This repo provides as interface for displaying multiple webpages in a slideshow.
 ```
 conda create --name spaceinfo python=3.5
 conda activate spaceinfo
-pip install flask
+pip install -r requirements.txt
 ```
 ### Install via venv
 ```
 python3 -m venv venv
 source venv/bin/activate
-pip install flask
+pip install -r requirements.txt
 ```
 
 ## Run
