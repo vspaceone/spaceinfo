@@ -56,7 +56,6 @@ except:
 
 app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
-#app.config["SERVER_NAME"] = "127.0.0.1:8080"
 
 @app.after_request
 def add_header(response):
