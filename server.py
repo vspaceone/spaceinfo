@@ -7,9 +7,12 @@ import sys
 import logging
 from urllib.parse import unquote
 import signal
-
+import pathlib
 import flask
+import jinja2
 
+
+from Page import Page,PageType
 
 # Constants
 VERSION_MAJOR = 0
@@ -18,8 +21,7 @@ VERSION_PATCH = 3
 VERSION = "v"+str(VERSION_MAJOR)+"."+str(VERSION_MINOR)+"."+str(VERSION_PATCH)
 
 
-# Defaults
-pathToPages = "../spaceinfo-pages"
+
 
 # Setting up logger
 logger = logging.getLogger('server.py')
@@ -45,16 +47,41 @@ logger.info("Starting server...")
 #	s.end_headers()
 #	s.wfile.write(generateDirectory("internal"))
 
-srvconfig = configparser.RawConfigParser()
-srvconfig.read("config.ini")
+pathToPages = pathlib.Path("../spaceinfo-pages/pages")
+pathToTemplates = pathlib.Path("../spaceinfo-pages/templates")
+
+serverconfig = configparser.RawConfigParser()
+serverconfig.read("config.ini")
 
 try:
-	pathToPages = srvconfig["Server-Settings"]["pathToPages"].replace("\\\\","\\")
+	pathToPages = pathlib.Path(serverconfig["Server-Settings"]["pathToPages"].replace("\\\\","\\"))
 	logger.warning(pathToPages)
 except:
 	pass
 
+try:
+	pathToTemplates = pathlib.Path(serverconfig["Server-Settings"]["pathToTemplates"].replace("\\\\","\\"))
+	logger.warning(pathToPages)
+except:
+	pass
+
+assert pathToPages.exists()
+assert pathToTemplates.exists()
+
+DEFAULTS = dict({
+	"timeout": 60,
+	"startdate": "",
+	"enddate": ""
+})
+
+
 app = flask.Flask(__name__)
+my_loader = jinja2.ChoiceLoader([
+app.jinja_loader,
+	jinja2.FileSystemLoader(pathToTemplates),
+])
+app.jinja_loader = my_loader
+
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 
 @app.after_request
@@ -62,6 +89,7 @@ def add_header(response):
     response.headers['Cache-Control'] = 'must-validate'
     return response
 
+# Register signal handlers
 def sigterm_handler(_signo,_stack_frame):
 	logger.info("SIGTERM received. Cleaning up...")
 	sys.exit(0)
@@ -103,9 +131,18 @@ def displayShowOverview(showname):
 	resp.headers["Content-type"] = "text/html; charset=utf-8"
 	return resp
 
-@app.route('/pages/<path:path>')
-def sendStatic(path):
-    return flask.send_from_directory(pathToPages, path)
+@app.route('/pages/<pagename>/<path:path>')
+def sendStatic(pagename,path):
+	page = Page(pathToPages / pagename, DEFAULTS)
+	path = pathlib.Path(path)
+
+	if (pathToPages / pagename / path).exists():
+		return flask.send_from_directory(pathToPages / pagename, path)
+	else:
+		resp = flask.make_response(flask.render_template(page.template, template_folder=pathToTemplates, **page.template_params), 200)
+		resp.headers["Content-type"] = "text/html; charset=utf-8"
+		return resp
+
 
 @app.route('/version.json')
 def getVersion():
@@ -116,77 +153,25 @@ def getVersion():
 
 
 def getShows():
-	p = os.path.relpath(pathToPages)
 	slideshows = []
 
-	for d in os.listdir(p):
-		if not os.path.isfile(os.path.join(pathToPages,d)):
-			for f in os.listdir(os.path.join(pathToPages,d)):
-				if f == "config.ini":
-					config = configparser.RawConfigParser()
-					try:
-						config.read(os.path.join(pathToPages,d,f))
-						for s in config["Page-Settings"]["slideshows"].split(" "):
-							if s.strip() != "":
-								slideshows.append(s)
-					except Exception as e:
-						print(e)
-						pass
+	for directory in pathToPages.iterdir():
+		if not directory.is_file():
+			print(directory,Page(directory,DEFAULTS).slideshows)
+			slideshows.extend(Page(directory,DEFAULTS).slideshows)
 	return list(set(slideshows))
 
 def generateDirectory(slideshow):
-	directory = []
+	result = []
 
 	servername = ""
 	logger.info("Generating directory for slideshow %s" % slideshow)
-	DEFAULT_TIMEOUT = 60
-	p = os.path.relpath(pathToPages)
+	
+	for directory in pathToPages.iterdir():
+		if not directory.is_file():
+			page = Page(directory,DEFAULTS)
+			if slideshow in page.slideshows:
+				result.append({ "title": str(directory), "link": str(page.link), "timeout": int(page.timeout), "startdate": page.startdate, "enddate": page.enddate})
 
-	for d in os.listdir(p):
-		if not os.path.isfile(os.path.join(pathToPages,d)):
-			link = ""
-			timeout = DEFAULT_TIMEOUT
-			startdate = ""
-			enddate = ""
-			slideshows = []
-			for f in os.listdir(os.path.join(pathToPages,d)):
-				if f == "config.ini":
-					config = configparser.RawConfigParser()
-					config.read(os.path.join(pathToPages,d,f))
-
-
-					try:
-						link = config["Page-Settings"]["external_link"].strip('\"')
-					except Exception as e:
-						pass
-					try:
-						timeout = int(config["Page-Settings"]["timeout"])
-					except Exception as e:
-						pass
-					try:
-						slideshows =  config["Page-Settings"]["slideshows"].split(" ")
-					except Exception as e:
-						pass
-					try:
-						startdate = config["Page-Settings"]["startdate"]
-					except Exception as e:
-						pass
-					try:
-						enddate = config["Page-Settings"]["enddate"]
-					except Exception as e:
-						pass
-				if f == "index.html":
-					link = os.path.join(servername,"pages",d,f)
-				else:
-					pass
-
-			# Checking for Errors
-			if link == "":
-				logger.error(os.path.join(pathToPages,d)+" got no index.html neither config.ini")
-				continue
-			if slideshow not in slideshows:
-				continue
-			directory.append({ "title": d, "link": link, "timeout": timeout, "startdate": startdate, "enddate": enddate})
-
-	ret = (json.dumps(directory, indent=2, sort_keys=True))
+	ret = (json.dumps(result, indent=2, sort_keys=True))
 	return ret

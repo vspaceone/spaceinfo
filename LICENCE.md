@@ -1,4 +1,4 @@
-Copyright (c) 2018 - 2019 vspace.one e.V.
+Copyright (c) 2018 - 2022 vspace.one e.V.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
